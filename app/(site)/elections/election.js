@@ -2,8 +2,8 @@
 import Link from "next/link";
 const Election = ({ election }) => {
 	const { id, Name, Start, End } = election;
-	const voteCandidate = () => {
-		console.log("vote");
+	const voteCandidate = (id) => {
+		console.log("vote" + id);
 	};
 	return (
 		<Link
@@ -32,13 +32,13 @@ const Election = ({ election }) => {
 				{election?.status?.msg === "Running" ? (
 					<div className="flex gap-2">
 						<button
-							onClick={() => voteCandidate()}
+							onClick={() => voteCandidate(id)}
 							className="btn btn-md bg-green-500 hover:bg-green-400 md:btn-lg transition-all"
 						>
 							Vote
 						</button>
 						<Link
-							href={`elections/${"hhhh"}/votes`}
+							href={`elections/${id}/votes`}
 							className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 						>
 							View Result
@@ -46,7 +46,7 @@ const Election = ({ election }) => {
 					</div>
 				) : (
 					<Link
-						href={`elections/${"hhhh"}/votes`}
+						href={`elections/${id}/votes`}
 						className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 					>
 						View Result

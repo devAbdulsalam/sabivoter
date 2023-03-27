@@ -26,11 +26,10 @@ export default NextAuth({
 				});
 				const user = await res.json();
 				if (res.ok && user) {
-					console.log(user)
+					// console.log(user)
 					return user;
 				}
 				if (!res.ok && !user) {
-					// console.log("user not found")
 					throw new Error("user not found");
 				}
 			},

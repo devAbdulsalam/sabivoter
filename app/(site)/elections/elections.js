@@ -1,6 +1,11 @@
 // "use client";
+
+import { cookies } from "next/headers";
 import Link from "next/link";
 const Elections = async ({ elections }) => {
+	const cookieStore = cookies();
+	const theme = cookieStore.get("theme");
+	console.log(theme);
 	return (
 		<div className="text-2xl">
 			<h2 className="text-center text-lg py-2 font-semibold">Elections</h2>
