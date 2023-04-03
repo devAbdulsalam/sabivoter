@@ -24,7 +24,7 @@ const page = () => {
 				})
 				.then((res) => res.data)
 				.then((data) => {
-					setSuccess(data.message);
+					setSuccess(data.msg);
 					setIsLoading(false);
 				})
 				.catch((error) => {

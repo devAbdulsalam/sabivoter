@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export default function Error({error, reset}) {
   const [msg, setMsg] = useState(null)
   useEffect(()=>{
-    console.error(error);
+    // console.error(error);
     setMsg(error)
   }, [error])
   return (

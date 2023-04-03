@@ -1,4 +1,10 @@
-const page = () => {
+import { getData } from "@/utils/AxiosApis";
+
+const page = async ({ params }) => {
+	// let data = await getData("https://vote-me.cyclic.app/api/v1/user/count", {
+	// 	credentials: "include",
+	// });
+	// console.log(data);
 	return (
 		<div class="items-center w-full px-4 py-8 mx-auto my-2 text-green-500 bg-white rounded-lg shadow-md sm:w-11/12">
 			<div class="container mx-auto">

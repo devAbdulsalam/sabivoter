@@ -6,10 +6,7 @@ const Election = ({ election }) => {
 		console.log("vote" + id);
 	};
 	return (
-		<Link
-			href={`/elections/${id}`}
-			className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
-		>
+		<div className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
 			<Link className="text-xl font semibold" href={`/elections/${id}`}>
 				{Name}
 			</Link>
@@ -53,7 +50,7 @@ const Election = ({ election }) => {
 					</Link>
 				)}
 			</div>
-		</Link>
+		</div>
 	);
 };
 export default Election;

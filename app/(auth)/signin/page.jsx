@@ -23,17 +23,17 @@ const page = ({searchParams}) => {
         return error("Please fill all inputs")
       }
       setIsError(null)
-      const res = await signIn('credentials', {email, password, redirect: false, callbackUrl:"/"})
-        if(res === ok){
+      const res = await signIn('credentials', {email, password, redirect: true, callbackUrl:"/"})
+        if(res.ok){
           // console.log(res)
-          setSuccess(data.message)
+          setSuccess(data.msg || "Login Successfull")
           setIsLoading(false)
           }
 
-        if(!res === ok) {
-          console.log(error.message)
-          // setIsError(error.message)
-          setIsError("all inputs are required")
+        if(!res.ok) {
+          console.log(error?.msg)
+          console.log(error)
+          // setIsError(error?.msg || "Error Logging in")
           setIsLoading(false)
         }
       

@@ -13,6 +13,13 @@ export default withAuth(
 				new URL("/signin?message=You are not Authorize!", req.url)
 			);
 		}
+
+		if (
+			req.nextUrl.pathname.startsWith("/") &&
+			req?.token === "authenticated"
+		) {
+			return NextResponse.rewrite(new URL("/election", req.url));
+		}
 	},
 	{
 		callbacks: {
@@ -25,5 +32,5 @@ export default withAuth(
 
 export const config = {
 	// matcher: ["/admin/:path*"],
-	matcher: ["/admin/newelection"],
+	matcher: ["/about"],
 };
