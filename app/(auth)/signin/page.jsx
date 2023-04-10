@@ -24,7 +24,7 @@ const page = ({searchParams}) => {
       }
       setIsError(null)
       const res = await signIn('credentials', {email, password, redirect: true, callbackUrl:"/"})
-        if(res.ok){
+        if(res?.ok){
           // console.log(res)
           setSuccess(data.msg || "Login Successfull")
           setIsLoading(false)

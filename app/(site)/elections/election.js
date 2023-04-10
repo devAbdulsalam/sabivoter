@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 const Election = ({ election }) => {
-	const { id, Name, Start, End } = election;
+	const { _id:id, electionName, beginAt:Start, endAt:End } = election;
 	const voteCandidate = (id) => {
 		console.log("vote" + id);
 	};
 	return (
 		<div className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
 			<Link className="text-xl font semibold" href={`/elections/${id}`}>
-				{Name}
+				{electionName}
 			</Link>
 			<p className="text-green-500 pt-2 whitespace-nowrap text-sm">
 				Start on: <span>{Start}</span>

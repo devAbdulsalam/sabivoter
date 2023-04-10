@@ -6,12 +6,12 @@ import Link from 'next/link';
 // import next/image
   import Image from 'next/image';
   // import hero image
-import AboutImg from '../../public/assets/countvote.jpg'
+import AboutImg from '../../../public/assets/countvote.jpg'
 
 // import animations and framer-motion
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { PictureAnimation, ProjAnimation } from '../../utils/animation';
+import { PictureAnimation, ProjAnimation } from '../../../utils/animation';
 
 const About = () => {
   const controls = useAnimation();

@@ -8,7 +8,7 @@ const Elections = async ({ elections }) => {
 			<div className="text-base flex flex-col space-y-2">
 				{elections?.map((item, idx) => (
 					<div key={idx} className="p-1 hover:text-accent">
-						{item?.Name}
+						{item?.electionName}
 					</div>
 				))}
 			</div>

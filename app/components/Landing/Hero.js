@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 // import next/image
 import Image from "next/image";
 // import hero image
-import hero from "./../../public/assets/voter.png";
+import hero from "./../../../public/assets/voter.png";
 
 // import animations and framer-motion
 import {
@@ -11,7 +11,7 @@ import {
 	TextAnimation,
 	titleAnim,
 	PictureAnimation,
-} from "../../utils/animation";
+} from "../../../utils/animation";
 import { motion } from "framer-motion";
 
 const Hero = () => {

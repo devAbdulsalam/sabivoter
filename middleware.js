@@ -5,7 +5,8 @@ export default withAuth(
 	function middleware(req) {
 		if (
 			req.nextUrl.pathname.startsWith("/admin") &&
-			req?.token?.role !== "admin"
+			req?.token === "authenticated"
+			// req?.token?.role !== "admin"
 		) {
 			// console.log("request", req.nextUrl.pathname);
 			// console.log(req.cookies);
@@ -15,10 +16,20 @@ export default withAuth(
 		}
 
 		if (
-			req.nextUrl.pathname.startsWith("/") &&
+			req.nextUrl.pathname.startsWith("/dashboard") &&
 			req?.token === "authenticated"
 		) {
-			return NextResponse.rewrite(new URL("/election", req.url));
+			return NextResponse.rewrite(new URL("/", req.url));
+		}
+
+		if (
+			req.nextUrl.pathname.match("/") &&
+			req?.token === "authenticated"
+			// req?.token?.role !== "admin"
+		) {
+			// console.log("request", req.nextUrl.pathname);
+			// console.log(req.cookies);
+			return NextResponse.rewrite(new URL("/dashboard", req.url));
 		}
 	},
 	{

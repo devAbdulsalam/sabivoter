@@ -2,19 +2,19 @@
 export const navigation = [
 	{
 		name: "home",
-		href: "home",
+		href: "#home",
 	},
 	{
 		name: "about",
-		href: "about",
+		href: "#about",
 	},
 	{
-		name: "services",
-		href: "services",
+		name: "elections",
+		href: "/elections",
 	},
 	{
 		name: "contact",
-		href: "contact",
+		href: "#contact",
 	},
 ];
 // navigation
@@ -88,24 +88,32 @@ export const projectsData = [
 		image: Project1,
 		name: "project name 1",
 		category: "UI/UX design",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
 	},
 	{
 		id: "2",
 		image: Project2,
 		name: "project name 2",
 		category: "web development",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
 	},
 	{
 		id: "3",
 		image: Project3,
 		name: "project name 3",
 		category: "UI/UX design",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
 	},
 	{
 		id: "4",
 		image: Project4,
 		name: "project name 4",
 		category: "branding",
+		description:
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
 	},
 ];
 

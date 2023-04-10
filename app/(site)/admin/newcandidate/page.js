@@ -1,8 +1,10 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
+import { navLinks } from "../../../Data";
+// import { getData } from "../../../../utils/AxiosApis";
 
 const newcandidate = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -12,20 +14,27 @@ const newcandidate = () => {
 	const [selectedFile, setSelectedFile] = useState("");
 	const [selectedFileName, setSelectedFileName] = useState("");
 	// //textFeilds
-	const [candidateName, setCandidateName] = useState("");
-	const [electionName, setElectionName] = useState("");
-	const [partyName, setPartyName] = useState("");
+	const [name, setName] = useState("");
+	const [election, setElection] = useState("");
+	const [party, setParty] = useState("");
+	const [profile, setProfile] = useState("");
+	const [option, setOptions] = useState("");
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:3000/api/elections")
+			.then((res) => setOptions(res.data))
+			.catch((error) => {
+				console.log(error.message);
+				console.log(error?.response?.data?.error);
+			});
+		console.log(option);
+	}, []);
 
 	const handleUpload = async (e) => {
-		const user = { candidateName, electionName, partyName };
 		setIsLoading(true);
 		try {
-			if (
-				!selectedFile ||
-				candidateName === "" ||
-				electionName === "" ||
-				partyName === ""
-			) {
+			if (!selectedFile || name === "" || election === "" || party === "") {
 				setIsError("All fields are required");
 				toast.error("All fields are required!");
 				setIsLoading(false);
@@ -36,27 +45,29 @@ const newcandidate = () => {
 			}
 			const formData = new FormData();
 			formData.append("image", selectedFile);
-			formData.append("data", JSON.stringify(user));
-			const { data } = await axios.post(
-				"https://vote-me.cyclic.app/api/v1/add",
-				formData,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-						withCredentials: true,
-					},
-				}
-			);
-
+			formData.append("name", name);
+			formData.append("election", election);
+			formData.append("party", party);
+			const data = await axios.post(`${baseurl}/candidate`, formData);
 			console.log(data);
 			setIsLoading(false);
 			setIsError(null);
 			setSuccess("Candidate added successfully");
+			setTimeout(() => {
+				setSuccess(null);
+				setElection("");
+				setName("");
+				setParty("");
+				setSelectedFile("");
+				setSelectedFileName("");
+			}, 2000);
 		} catch (error) {
 			console.log(error);
-			console.log(error?.message);
-			toast.error("Network error !", {position: "top-right"});
-			setIsError(error.response?.data || error?.message || "Network error ");
+			console.log(error.response?.data?.error);
+			toast.error("Network error !", { position: "top-right" });
+			setIsError(
+				error.response?.data?.error || error?.message || "Network error"
+			);
 			setTimeout(() => {
 				setIsError(null);
 			}, 2000);
@@ -67,8 +78,8 @@ const newcandidate = () => {
 		<div className="w-full p-20 mt-10 flex flex-col justify-center items-center space-x-2 h-[100%] bg-white">
 			<Toaster />
 			<h2 className="my-4 mx-auto text-2xl text-green-500">Add Candidate</h2>
-			<div className="mx-auto flex flex-col justify-center items-center space-x-2 shadow-lg rounded-md bg-gray-50">
-				<div className="mx-auto p-10 flex flex-col md:flex-row justify-center items-center">
+			<div className="shadow-lg rounded-md bg-gray-50 p-4">
+				<div className="w-full flex flex-col md:flex-row justify-center items-center">
 					<div className="max-w-4xl mx-auto p-20 space-y-20">
 						<label htmlFor="image">
 							<input
@@ -112,10 +123,10 @@ const newcandidate = () => {
 								Candidate Name:
 							</label>
 							<input
-								onChange={(e) => setCandidateName(e.target.value)}
+								onChange={(e) => setName(e.target.value)}
 								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-500 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 								type="text"
-								value={candidateName}
+								value={name}
 								placeholder="Abdulsalam Chima Ademolekun"
 								id="name"
 								name="name"
@@ -127,34 +138,52 @@ const newcandidate = () => {
 								Party Name:
 							</label>
 							<input
-								onChange={(e) => setPartyName(e.target.value)}
+								onChange={(e) => setParty(e.target.value)}
 								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 								type="text"
-								value={partyName}
+								value={party}
 								placeholder="Nigeria People's Party"
 								id="party"
 								name="party"
 								autoComplete="text"
 							></input>
 						</div>
-						<div className="my-1">
+						<div className="mt-1">
 							<label htmlFor="electionname" className="text-lg font-semibold">
 								Election Name:
 							</label>
-							<input
-								onChange={(e) => setElectionName(e.target.value)}
+							<select
+								onChange={(e) => setElection(e.target.value)}
+								value={election}
 								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-								type="text"
-								value={electionName}
-								placeholder="Presidential Election"
-								id="electionname"
-								name="electionname"
-								autoComplete="text"
-							></input>
+							>
+								{navLinks.map((item, idx) => {
+									return (
+										<option key={idx} value={item.name}>
+											{item.name}
+										</option>
+									);
+								})}
+							</select>
 						</div>
 					</div>
 				</div>
-				<div className="w-full p-2">
+				<div className="mb-1 w-full">
+					<label htmlFor="Profile" className="text-lg font-semibold">
+						Candidate Profile:
+					</label>
+					<input
+						onChange={(e) => setProfile(e.target.value)}
+						className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+						type="text"
+						value={profile}
+						placeholder="candidate political background"
+						id="Profile"
+						name="Profile"
+						autoComplete="text"
+					></input>
+				</div>
+				<div className="w-full px-2">
 					{error && (
 						<div className="error duration-500 p-2 bg-red-300 text-red-800 text-center text-lg border-red-700 border-2 rounded-md">
 							{error}
@@ -170,24 +199,12 @@ const newcandidate = () => {
 			<div className="max-w-3xl mx-auto mt-2">
 				<button
 					onClick={handleUpload}
-					className="bg-[#228e01] w-full text-white py-3 my-2 mt-4 px-2 rounded font-semibold text-lg"
+					className="bg-[#228e01] w-full text-white py-3 my-2 mt-4 px-2 md:px-4 rounded font-semibold text-lg"
 					disabled={isLoading}
 				>
 					{isLoading ? "Loading..." : "Add Candidate"}
 				</button>
 			</div>
-			<>
-				{error && (
-					<div className="error duration-500 p-2 bg-red-300 text-red-800 text-center text-lg border-red-700 border-2 rounded-md">
-						{error}
-					</div>
-				)}
-				{success && (
-					<div className="success duration-500 p-2 bg-green-300 text-green-800 text-center text-lg border-green-700 border-2 rounded-md">
-						{success}
-					</div>
-				)}
-			</>
 		</div>
 	);
 };

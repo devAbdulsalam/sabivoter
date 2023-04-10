@@ -1,7 +1,7 @@
 import React from "react";
 
 // import contact data
-import { contact } from "../Data";
+import { contact } from "../../Data";
 
 const Contact = () => {
 	return (

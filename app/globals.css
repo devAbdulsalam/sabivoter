@@ -40,11 +40,11 @@
         @apply h-[48px];
     }
     .input {
-        @apply bg-secondary text-paragraph h-[60px] outline-none pl-6 w-full  text-[15px] rounded-sm focus:outline focus:outline-1 focus:outline-accent;
+        @apply bg-gray-300 text-secondary h-[60px] outline-none pl-6 w-full  text-[15px] rounded-sm focus:outline focus:outline-1 focus:outline-accent;
     }
 
     .textarea {
-        @apply bg-secondary resize-none w-full outline-none p-6 rounded-sm h-[200px] focus:outline focus:outline-1 focus:outline-accent;
+        @apply bg-gray-300 resize-none w-full outline-none p-6 rounded-sm h-[200px] focus:outline focus:outline-1 focus:outline-accent;
     }
     .active {
         @apply text-[925a2b];

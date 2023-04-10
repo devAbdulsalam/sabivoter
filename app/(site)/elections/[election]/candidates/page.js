@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { candidates } from "../../../../Data";
 import avatar from "../../../../../public/assets/avatar.png";
+import { getData } from "../../../../../utils/AxiosApis";
 // import animations and framer-motion
 import { useAnimation, motion } from "framer-motion";
 import {
@@ -12,7 +13,13 @@ import {
 } from "../../../../../utils/animation";
 import { useInView } from "react-intersection-observer";
 
-const Candidate = ({ params }) => {
+const Candidate = async ({ params }) => {
+	let data = await getData(`http://localhost:3000/api/elections/${params.candidate}`, {
+		credentials: "include",
+	});
+	if(data){
+		console.log(data)
+	}
 	const controls = useAnimation();
 	const { ref, inView } = useInView();
 	useEffect(() => {

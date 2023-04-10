@@ -19,16 +19,22 @@ const page = () => {
 		setIsLoading(true);
 		if (data) {
 			axios
-				.post("https://vote-me.cyclic.app/api/v1/addElection", data, {
+				.post("http://localhost:3000/api/elections", data, {
 					withCredentials: true,
 				})
 				.then((res) => res.data)
 				.then((data) => {
 					setSuccess(data.msg);
 					setIsLoading(false);
+					setTimeout(() => {
+						setSuccess(null);
+						setElectionName("");
+						setBeginAt("");
+						setEndAt("");
+					}, 500);
 				})
 				.catch((error) => {
-					console.log(error.message);
+					console.log(error);
 					setIsError(error.message);
 					setIsLoading(false);
 				});
@@ -38,7 +44,7 @@ const page = () => {
 		}
 	};
 	return (
-		<div className="text-2xl flex flex-col justify-center items-center h-[100%] bg-white debug w-full p-20 mt-10">
+		<div className="text-2xl flex flex-col justify-center items-center h-[100%] bg-white w-full p-20 mt-10">
 			<div>
 				<h1 className="text-center text-xl md:text-2xl font-bold py-3 text-green-500">
 					Create New Election

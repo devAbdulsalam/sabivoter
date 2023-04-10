@@ -1,7 +1,7 @@
 import React from "react";
 // import components
 import Service from "./Service";
-import { projectsData } from "../Data";
+import { projectsData } from "../../Data";
 
 const Services = () => {
 	return (

@@ -1,17 +1,17 @@
-import Hero from './../components/Hero'
-import About from "./../components/About"
-import Services from './../components/Services'
-import BackTopBtn from "./../components/BackTopBtn"
-import Contact from "./../components/Contact"
+import Hero from "./../components/Landing/Hero";
+import About from "./../components/Landing/About";
+import Services from "./../components/Landing/Services";
+import BackTopBtn from "./../components/Landing/BackTopBtn";
+import Contact from "./../components/Landing/Contact";
 
 export default function Home() {
-  return (
-    <>
-    <Hero />
-    <About />
-    <Services/>
-    <BackTopBtn />
-    <Contact/>
-    </>
-  ) 
+	return (
+		<>
+			<Hero />
+			<About />
+			<Services />
+			<BackTopBtn />
+			<Contact />
+		</>
+	);
 }
