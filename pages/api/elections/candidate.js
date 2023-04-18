@@ -1,5 +1,5 @@
 import connectMDB from "../../../app/components/database/connMDB";
-import {Candidate} from "../../../app/components/database/model/candidate";
+import { Candidate } from "../../../app/components/database/model/candidate";
 
 export default async function handler(req, res) {
 	connectMDB().catch(() =>
@@ -8,6 +8,9 @@ export default async function handler(req, res) {
 
 	// type of request
 	const { method } = req;
+	if (method == "POST") {
+		return;
+	}
 
 	const { electionId } = req.query;
 	try {
