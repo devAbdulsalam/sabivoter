@@ -19,14 +19,13 @@ export default NextAuth({
 				},
 			},
 			async authorize(credentials, req) {
-				const res = await fetch("https://vote-me.cyclic.app/api/v1/login", {
+				const res = await fetch("http://localhost:3000/api/auth/login", {
 					method: "POST",
 					body: JSON.stringify(credentials),
 					headers: { "Content-Type": "application/json" },
 				});
 				const user = await res.json();
 				if (res.ok && user) {
-					// console.log(user)
 					return user;
 				}
 				if (!res.ok && !user) {
@@ -43,7 +42,7 @@ export default NextAuth({
 		async jwt({ token, user }) {
 			return { ...token, ...user };
 		},
-		async session({ session, token, user }) {
+		async session({ session, token }) {
 			session.user = token;
 			return session;
 		},

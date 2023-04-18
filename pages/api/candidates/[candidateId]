@@ -1,7 +1,7 @@
 import connectMDB from "../../../app/components/database/connMDB";
 import {
-	getElectionCandidate,
-	postCandidate,
+	getCandidate,
+	// postCandidate,
 } from "../../../app/components/database/controller/candidate";
 
 export default async function handler(req, res) {
@@ -14,10 +14,10 @@ export default async function handler(req, res) {
 
 	switch (method) {
 		case "GET":
-			getElectionCandidate(req, res);
+			getCandidate(req, res);
 			break;
 		case "POST":
-			postCandidate(req, res);
+			// postCandidate(req, res);
 			break;
 		default:
 			res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);

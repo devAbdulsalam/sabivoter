@@ -1,22 +1,8 @@
-/** User Controller */
+/** Candidate Controller */
 import Candidate from "../model/candidate";
 
-// get : http://localhost:3000/api/candidates/1
-export async function getCandidates(req, res) {
-	const { electionId } = req.query;
-	try {
-		const candidate = await Candidate.find({ election: electionId }).sort({
-			createdAt: -1,
-		});
-		if (!candidate) return res.status(404).json({ error: "Data not Found" });
-		res.status(200).json(candidate);
-	} catch (error) {
-		res.status(404).json({ error: "Error While Fetching Data" });
-	}
-}
-
 // get : http://localhost:3000/api/candidate
-export async function getCandidate(req, res) {
+export async function getCandidates(req, res) {
 	try {
 		const candidate = await Candidate.find({}).sort({
 			createdAt: -1,
@@ -29,7 +15,7 @@ export async function getCandidate(req, res) {
 }
 
 // get : http://localhost:3000/api/candidate/1
-export async function getElectionCandidate(req, res) {
+export async function getCandidate(req, res) {
 	try {
 		const { candidateId } = req.query;
 
@@ -44,9 +30,8 @@ export async function getElectionCandidate(req, res) {
 }
 
 // post : http://localhost:3000/api/candidates
-export async function postCandidates(req, res) {
-	const { name, party, election } = req.body;
-	console.log(req.body);
+export async function postCandidate(req, res) {
+	const { name, party, election, profile, image } = req.body;
 	try {
 		if (!name || !party || !election) {
 			return res.status(404).json({ error: "Form Data Not Provided...!" });
@@ -58,14 +43,15 @@ export async function postCandidates(req, res) {
 			election,
 			image,
 		});
-		if (!candidate) {
-			return res.status(404).json({ error: "Error Creating candidate...!" });
+		if (candidate) {
+			res
+				.status(200)
+				.json({ candidate, msg: "Candidate created successfully" });
 		}
-		return res
-			.status(200)
-			.json({ candidate, msg: "candidate created successfully" });
+
+		return res.status(404).json({ error: "Error Creating candidate...!" });
 	} catch (error) {
-		return res.status(404).json({ error });
+		return res.status(404).json({ error: "Error Creating candidate..!!" });
 	}
 }
 

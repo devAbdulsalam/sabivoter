@@ -7,7 +7,7 @@ import axios from "axios";
 export default function Page() {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
-	const [NIN, setNIN] = useState("");
+	const [nin, setNin] = useState("");
 	const [password, setPassword] = useState("");
 	const [password2, setPassword2] = useState("");
 	const [state, setState] = useState("");
@@ -20,12 +20,12 @@ export default function Page() {
 
 	const handleSignUp = async (e) => {
 		e.preventDefault();
-		const user = { name, email, NIN, password, password2, state, country };
+		const user = { name, email, nin, password, password2, state, country };
 		setIsLoading(true);
 		if (
 			!name === "" ||
 			!email === "" ||
-			!NIN == "" ||
+			!nin == "" ||
 			!password ||
 			!password2 ||
 			!state === "" ||
@@ -33,16 +33,18 @@ export default function Page() {
 		) {
 			setIsError(null);
 			axios
-				.post("https://vote-me.cyclic.app/api/v1/register", user)
+				.post("api/auth/signup", user)
 				.then((res) => res.data)
 				.then((data) => {
+					console.log(data);
 					setSuccess(data?.msg);
 					setIsLoading(false);
-					setTimeout(() => {
-						router.push("/signin");
-					}, 500);
+					// setTimeout(() => {
+					// 	router.redirect("/signin");
+					// }, 500);
 				})
 				.catch((error) => {
+					console.log(error);
 					setIsError(error?.response?.data?.msg || error?.message);
 					setIsLoading(false);
 				});
@@ -91,8 +93,8 @@ export default function Page() {
 					NIN:
 				</label>
 				<input
-					value={NIN}
-					onChange={(e) => setNIN(e.target.value)}
+					value={nin}
+					onChange={(e) => setNin(e.target.value)}
 					className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 					type="tel"
 					id="nin"

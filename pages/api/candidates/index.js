@@ -1,7 +1,7 @@
 import connectMDB from "../../../app/components/database/connMDB";
 import {
 	getCandidates,
-	postCandidates,
+	postCandidate,
 } from "../../../app/components/database/controller/candidate";
 
 export default async function handler(req, res) {
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 			getCandidates(req, res);
 			break;
 		case "POST":
-			postCandidates(req, res);
+			postCandidate(req, res);
 			break;
 		case "PUT":
 			res.status(200).json({ method, name: "PUT Request" });

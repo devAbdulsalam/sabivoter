@@ -48,7 +48,8 @@ const newcandidate = () => {
 			formData.append("name", name);
 			formData.append("election", election);
 			formData.append("party", party);
-			const data = await axios.post(`${baseurl}/candidate`, formData);
+			formData.append("profile", profile);
+			const data = await axios.post(`http://localhost:3000/api/men`, formData);
 			console.log(data);
 			setIsLoading(false);
 			setIsError(null);
@@ -58,7 +59,9 @@ const newcandidate = () => {
 				setElection("");
 				setName("");
 				setParty("");
+				setProfile("");
 				setSelectedFile("");
+				setSelectedImage("");
 				setSelectedFileName("");
 			}, 2000);
 		} catch (error) {
@@ -79,7 +82,7 @@ const newcandidate = () => {
 			<Toaster />
 			<h2 className="my-4 mx-auto text-2xl text-green-500">Add Candidate</h2>
 			<div className="shadow-lg rounded-md bg-gray-50 p-4">
-				<div className="w-full flex flex-col md:flex-row justify-center items-center">
+				<div className="w-full flex flex-col md:flex-row md:flex-wrap justify-center items-center">
 					<div className="max-w-4xl mx-auto p-20 space-y-20">
 						<label htmlFor="image">
 							<input
@@ -119,7 +122,10 @@ const newcandidate = () => {
 					{/* textfields */}
 					<div className="">
 						<div className="my-1">
-							<label htmlFor="name" className="text-lg font-semibold">
+							<label
+								htmlFor="name"
+								className="text-lg font-semibold whitespace-nowrap"
+							>
 								Candidate Name:
 							</label>
 							<input
@@ -169,7 +175,10 @@ const newcandidate = () => {
 					</div>
 				</div>
 				<div className="mb-1 w-full">
-					<label htmlFor="Profile" className="text-lg font-semibold">
+					<label
+						htmlFor="Profile"
+						className="text-lg font-semibold whitespace-nowrap"
+					>
 						Candidate Profile:
 					</label>
 					<input

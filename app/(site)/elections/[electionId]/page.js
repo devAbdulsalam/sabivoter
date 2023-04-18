@@ -8,7 +8,6 @@ import { getData } from "../../../../utils/AxiosApis";
 const page = async ({ params }) => {
 	let election = await getData(`elections/${params.electionId}`);
 
-	// const election = projectsData.filter((item) => item.id === params.election)
 	return (
 		<section className="section w-full flex flex-col gap-1 py-10 px-10">
 			<div className="container">
@@ -37,7 +36,7 @@ const page = async ({ params }) => {
 						</div>
 						<div className="flex gap-4 space-x-2 mt-2">
 							<Link
-								href={`elections/${params.election}/candidates`}
+								href={`elections/${params.electionId}/candidates`}
 								className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 							>
 								Candidate

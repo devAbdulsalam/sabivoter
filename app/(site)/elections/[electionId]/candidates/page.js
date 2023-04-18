@@ -14,11 +14,11 @@ import {
 import { useInView } from "react-intersection-observer";
 
 const Candidate = async ({ params }) => {
-	let data = await getData(`http://localhost:3000/api/elections/${params.candidate}`, {
+	let data = await getData(`/elections/${params.electionId}/candidate`, {
 		credentials: "include",
 	});
-	if(data){
-		console.log(data)
+	if (data) {
+		console.log(data);
 	}
 	const controls = useAnimation();
 	const { ref, inView } = useInView();
@@ -57,7 +57,7 @@ const Candidate = async ({ params }) => {
 								key={index}
 							>
 								<Link
-									href={`elections/election/${params.election}/candidates/${id}`}
+									href={`elections/election/${params.electionId}/candidates/${id}`}
 									className="text-accent rounded-sm flex justify-center items-center mb-2"
 								>
 									<Image

@@ -1,15 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { candidates } from "../../../../../Data";
 import avatar from "../../../../../../public/assets/avatar.png";
 import { notFound } from "next/navigation";
+import { getData } from "./../../../../../../utils/AxiosApis";
 
 const page = async ({ params }) => {
-	const candidate = candidates.filter((item) => item.id === params.candidate);
+	let candidate = await getData(
+		`elections/${params.electionId}/candidates/${params.candidate}`
+	);
 	if (!candidate) return notFound();
 
-	const { name, description } = candidate;
+	// const { name, description } = candidate;
 	// console.log(name);
 	return (
 		<section className="section w-full flex flex-col gap-1 py-10 px-10">

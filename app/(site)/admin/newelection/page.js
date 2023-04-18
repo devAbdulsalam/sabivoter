@@ -8,14 +8,14 @@ const page = () => {
 	const [electionName, setElectionName] = useState("");
 	const [beginAt, setBeginAt] = useState("");
 	const [endAt, setEndAt] = useState("");
+	const [details, setDetials] = useState("");
 	const [error, setIsError] = useState(null);
 	const [success, setSuccess] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const data = { electionName, beginAt, endAt };
-		console.log(data);
+		const data = { electionName, details, beginAt, endAt };
 		setIsLoading(true);
 		if (data) {
 			axios
@@ -31,12 +31,19 @@ const page = () => {
 						setElectionName("");
 						setBeginAt("");
 						setEndAt("");
-					}, 500);
+					}, 1000);
 				})
 				.catch((error) => {
-					console.log(error);
-					setIsError(error.message);
+					console.log(
+						error.response?.data?.error || error?.message || "Network error"
+					);
+					setIsError(
+						error.response?.data?.error || error?.message || "Network error"
+					);
 					setIsLoading(false);
+					setTimeout(() => {
+						setIsError(null);
+					}, 1000);
 				});
 		} else {
 			setIsError("all inputs are required");
@@ -91,6 +98,21 @@ const page = () => {
 						type="date"
 						value={endAt}
 						id="endAt"
+					></input>
+				</div>
+				<div className="my-1">
+					<label htmlFor="detail" className="text-lg font-semibold">
+						Election Details:
+					</label>
+					<input
+						onChange={(e) => setDetials(e.target.value)}
+						className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+						type="text"
+						value={details}
+						placeholder="Breif Details of the election"
+						id="detail"
+						name="detail"
+						autoComplete="text"
 					></input>
 				</div>
 				<div>

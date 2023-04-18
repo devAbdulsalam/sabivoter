@@ -1,12 +1,15 @@
 /** User Controller */
 import Users from "../model/user";
-import { bcrypt } from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 // get : http://localhost:3000/api/users
 export async function getUsers(req, res) {
 	try {
 		const users = await Users.find({}).sort({ createdAt: -1 });
-		if (!users) return res.status(404).json({ error: "Data not Found" });
+		if (!users){
+			 res.status(404).json({ error: "Data not Found" });
+			return;
+		} 
 		res.status(200).json(users);
 	} catch (error) {
 		res.status(404).json({ error: "Error While Fetching Data" });
@@ -45,28 +48,9 @@ export async function getUser(req, res) {
 // 	}
 // }
 // get : http://localhost:3000/api/user/login
-export async function logInUser(req, res) {
-	const { phone, password } = req.body;
-	try {
-		if (!phone && !password) {
-			res.status(404).json({ error: "Invalid Login Credientials!!" });
-		}
-
-		let user = await this.findOne({ phone });
-
-		if (!user) {
-			res.status(404).json({ error: "userName or Password is Incorrect!!" });
-		}
-
-		const match = await bcrypt.compare(password, user.password);
-		if (!match) {
-			res.status(404).json({ error: "userName or Password is Incorrect!!" });
-		}
-		res.status(200).json({ user, message: "Log in successfully" });
-	} catch (error) {
-		res.status(404).json({ error: "Cannot get the User...!" });
-	}
-}
+// export async function logInUser(req, res) {
+	
+// }
 // post : http://localhost:3000/api//users
 export async function signInUser(req, res) {
 	const { name, nin, email, state, country, password } = req.body;
@@ -85,8 +69,8 @@ export async function signInUser(req, res) {
 					.status(404)
 					.json({ error: "Email already in use my another account !!" });
 			}
-			const salt = await bcrypt.genSalt(10);
-			const hash = await bcrypt.hash(password, salt);
+			const salt = await bcryptjs.genSaltSync(10);
+			const hash = await bcryptjs.hashSync(password, salt);
 			const user = await Users.create({
 				name,
 				phone,

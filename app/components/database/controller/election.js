@@ -40,7 +40,7 @@ export async function postElection(req, res) {
 			image,
 		});
 		if (!election) {
-			res.status(404).json({ error: "Error While Creating Election" });
+			res.status(404).json({ error: "Error Creating Election" });
 		}
 		res.status(200).json({ election, msg: "Election created successfully" });
 	} catch (error) {

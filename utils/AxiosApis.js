@@ -1,8 +1,9 @@
 import axios from "axios";
-import { baseurl } from "./config";
+
+const baseUrl = "http://localhost:3000/api/";
 
 export const getData = async (url) => {
-	let { data } = await axios(`${baseurl}/${url}`, { withCredentials: true });
+	let { data } = await axios(`${baseUrl}${url}`, { withCredentials: true });
 	if (!data) {
 		// This will activate the closest `error.js` Error Boundary
 		throw new Error("Failed to fetch data");
