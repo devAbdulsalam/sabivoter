@@ -1,10 +1,10 @@
 import bcryptjs from "bcryptjs";
-import User from "../../../app/components/database/model/user";
-import connectMDB from "../../../app/components/database/connMDB";
+import User from "@/database/model/user";
+import connectMDB from "@/database/connMDB";
 
 async function handler(req, res) {
-	if (req.method !== "POST") {
-		return res.status(405).json({ error: "Error Connctjjjjjkjkk" });
+	if (method !== 'POST') {
+		return res.status(405).end(`Method ${method} Not Allowd`);
 	}
 	const { name, email, password } = req.body;
 	if (

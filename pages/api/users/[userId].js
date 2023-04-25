@@ -1,9 +1,9 @@
-import connectMDB from "../../../app/components/database/connMDB";
+import connectMDB from "@/database/connMDB";
 import {
 	getUser,
 	putUser,
 	deleteUser,
-} from "../../../app/components/database/controller/user";
+} from "@/database/controller/user";
 
 export default async function handler(req, res) {
 	connectMDB().catch(() =>

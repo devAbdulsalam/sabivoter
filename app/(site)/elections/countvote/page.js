@@ -1,6 +1,6 @@
 import React from "react";
 const page = async () => {
-	let res = await fetch(`http://localhost:3000/api/users`);
+	let res = await fetch(`http://localhost:3000/api/votes`);
 	const data = await res.json();
 	if (!res.ok) {
 		console.log(error);

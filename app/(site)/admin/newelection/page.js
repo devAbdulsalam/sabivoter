@@ -1,17 +1,20 @@
-"use client";
-import axios from "axios";
-import React, { useState } from "react";
+'use client';
+import axios from 'axios';
+import React, { useState } from 'react';
+import Toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 // Cookie: cookie_for_data,
 
 const page = () => {
-	const [electionName, setElectionName] = useState("");
-	const [beginAt, setBeginAt] = useState("");
-	const [endAt, setEndAt] = useState("");
-	const [details, setDetials] = useState("");
+	const [electionName, setElectionName] = useState('');
+	const [beginAt, setBeginAt] = useState('');
+	const [endAt, setEndAt] = useState('');
+	const [details, setDetials] = useState('');
 	const [error, setIsError] = useState(null);
 	const [success, setSuccess] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+	const router = useRouter();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -19,7 +22,7 @@ const page = () => {
 		setIsLoading(true);
 		if (data) {
 			axios
-				.post("http://localhost:3000/api/elections", data, {
+				.post('http://localhost:3000/api/elections', data, {
 					withCredentials: true,
 				})
 				.then((res) => res.data)
@@ -28,17 +31,18 @@ const page = () => {
 					setIsLoading(false);
 					setTimeout(() => {
 						setSuccess(null);
-						setElectionName("");
-						setBeginAt("");
-						setEndAt("");
-					}, 1000);
+						setElectionName('');
+						setBeginAt('');
+						setEndAt('');
+						router.push(`/admin/newelection/${data?.election?._id}`);
+					}, 2000);
 				})
 				.catch((error) => {
 					console.log(
-						error.response?.data?.error || error?.message || "Network error"
+						error.response?.data?.error || error?.message || 'Network error'
 					);
 					setIsError(
-						error.response?.data?.error || error?.message || "Network error"
+						error.response?.data?.error || error?.message || 'Network error'
 					);
 					setIsLoading(false);
 					setTimeout(() => {
@@ -46,7 +50,7 @@ const page = () => {
 					}, 1000);
 				});
 		} else {
-			setIsError("all inputs are required");
+			setIsError('All inputs are required');
 			setIsLoading(false);
 		}
 	};
@@ -120,7 +124,7 @@ const page = () => {
 						className="bg-[#228e01] w-full text-white py-3 my-2 mt-4 rounded font-semibold text-xl"
 						disabled={isLoading}
 					>
-						{isLoading ? "Loading..." : "Create Election"}
+						{isLoading ? 'Loading...' : 'Create Election'}
 					</button>
 				</div>
 				<div>

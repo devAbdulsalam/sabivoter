@@ -1,42 +1,43 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { redirect, useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
-import GoogleLoginButton from "app/components/auth/GoogleSignInButton";
-import Link from "next/link";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import GoogleLoginButton from '@/components/auth/GoogleSignInButton';
+import Link from 'next/link';
 
 const page = ({ searchParams }) => {
 	const router = useRouter();
-	// const {redirect} = router.query;
+	// const { redirect } = router.query;
 	const { data: session } = useSession();
-	const [email, setName] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setName] = useState('');
+	const [password, setPassword] = useState('');
 	const [error, setIsError] = useState(null);
 	const [success, setSuccess] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (session?.user) {
-			router.push(redirect || "/");
+			router.push('/');
 		}
-	}, [router, redirect, session]);
+	}, [router, session]);
+	// console.log(searchParams); 
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = { email, password };
 		setIsLoading(true);
 		if (!data) {
-			return error("Please fill all inputs");
+			return error('Please fill all inputs');
 		}
 		setIsError(null);
-		const res = await signIn("credentials", {
+		const res = await signIn('credentials', {
 			email,
 			password,
 			redirect: true,
-			callbackUrl: "/",
+			callbackUrl: '/',
 		});
 		if (res?.ok) {
-			setSuccess(data.messsage || "Login Successfull");
+			setSuccess(data.messsage || 'Login Successfull');
 			setIsLoading(false);
 		}
 
@@ -92,7 +93,7 @@ const page = ({ searchParams }) => {
 						className="bg-[#228e01] w-full text-white py-3 my-2 mt-4 rounded font-semibold text-xl"
 						disabled={isLoading}
 					>
-						{isLoading ? "Loging..." : "Login"}
+						{isLoading ? 'Loging...' : 'Login'}
 					</button>
 				</div>
 				<div>
@@ -116,11 +117,11 @@ const page = ({ searchParams }) => {
 				<p className="py-4 text-gray-600">
 					Don't have an Account?
 					<Link href="/signup" className="text-green-700 cursor-pointer">
-						{" "}
+						{' '}
 						Signup
 					</Link>
 				</p>
-				<button onClick={() => router.push("/")} className="text-green-500">
+				<button onClick={() => router.push('/')} className="text-green-500">
 					forget password
 				</button>
 			</div>

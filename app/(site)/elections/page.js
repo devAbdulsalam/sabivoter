@@ -1,9 +1,11 @@
-import { getData } from "../../../utils/AxiosApis";
+import { getData } from '@/utils/AxiosApis';
 // import Election cards
-import Election from "./election";
+import Election from './election';
+import { notFound } from 'next/navigation';
 
 const election = async () => {
-	let data = await getData("elections");
+	let data = await getData('elections');
+	if (!data) return notFound();
 	return (
 		<div className="section bg-primary py-10 px-4 w-full">
 			<div className="container mx-auto h-full py-4">

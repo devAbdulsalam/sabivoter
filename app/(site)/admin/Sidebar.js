@@ -1,6 +1,6 @@
 // import React from 'react'
-import { navLinks } from "../../Data";
-import Link from "next/link";
+import { navLinks } from '@/utils/Data';
+import Link from 'next/link';
 
 const Sidebar = () => {
 	return (

@@ -1,8 +1,8 @@
-import connectMDB from "../../../app/components/database/connMDB";
+import connectMDB from "@/database/connMDB";
 import {
 	getCandidates,
 	postCandidate,
-} from "../../../app/components/database/controller/candidate";
+} from "@/database/controller/candidate";
 
 export default async function handler(req, res) {
 	// connectMDB
