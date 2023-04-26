@@ -1,43 +1,43 @@
 // navigation
 export const navigation = [
 	{
-		name: "home",
-		href: "#home",
+		name: 'home',
+		href: '#home',
 	},
 	{
-		name: "about",
-		href: "#about",
+		name: 'about',
+		href: '#about',
 	},
 	{
-		name: "elections",
-		href: "/elections",
+		name: 'elections',
+		href: '/elections',
 	},
 	{
-		name: "contact",
-		href: "#contact",
+		name: 'contact',
+		href: '#contact',
 	},
 ];
 // navigation
 export const navLinks = [
 	{
-		name: "home",
-		href: "/#home",
+		name: 'home',
+		href: '/#home',
 	},
 	{
-		name: "dashboard",
-		href: "./dashboard",
+		name: 'dashboard',
+		href: './dashboard',
 	},
 	{
-		name: "new Candidate",
-		href: "./admin/newcandidate",
+		name: 'new Candidate',
+		href: './newcandidate',
 	},
 	{
-		name: "new election",
-		href: "./admin/newelection",
+		name: 'new election',
+		href: './newelection',
 	},
 	{
-		name: "count votes",
-		href: "./admin/countvote",
+		name: 'count votes',
+		href: '/admin/countvote',
 	},
 ];
 
@@ -53,67 +53,67 @@ import {
 	FiTag,
 	FiMail,
 	FiMapPin,
-} from "react-icons/fi";
+} from 'react-icons/fi';
 
 // social
 export const social = [
 	{
 		icon: <FiYoutube />,
-		href: "",
+		href: '',
 	},
 	{
 		icon: <FiInstagram />,
-		href: "",
+		href: '',
 	},
 	{
 		icon: <FiGithub />,
-		href: "https://github.com/devAbdulsalam",
+		href: 'https://github.com/devAbdulsalam',
 	},
 	{
 		icon: <FiDribbble />,
-		href: "",
+		href: '',
 	},
 ];
 
 // projects images
-import Project1 from "../public/assets/projects/p1.webp";
-import Project2 from "../public/assets/projects/p2.webp";
-import Project3 from "../public/assets/projects/p3.webp";
-import Project4 from "../public/assets/projects/p4.webp";
+import Project1 from '../public/assets/projects/p1.webp';
+import Project2 from '../public/assets/projects/p2.webp';
+import Project3 from '../public/assets/projects/p3.webp';
+import Project4 from '../public/assets/projects/p4.webp';
 
 // projects
 export const projectsData = [
 	{
-		id: "1",
+		id: '1',
 		image: Project1,
-		name: "project name 1",
-		category: "UI/UX design",
+		name: 'project name 1',
+		category: 'UI/UX design',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
-		id: "2",
+		id: '2',
 		image: Project2,
-		name: "project name 2",
-		category: "web development",
+		name: 'project name 2',
+		category: 'web development',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
-		id: "3",
+		id: '3',
 		image: Project3,
-		name: "project name 3",
-		category: "UI/UX design",
+		name: 'project name 3',
+		category: 'UI/UX design',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
-		id: "4",
+		id: '4',
 		image: Project4,
-		name: "project name 4",
-		category: "branding",
+		name: 'project name 4',
+		category: 'branding',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 ];
 
@@ -121,54 +121,54 @@ export const projectsData = [
 export const services = [
 	{
 		icon: <FiLayout />,
-		name: "Web Design",
+		name: 'Web Design',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
 		icon: <FiSettings />,
-		name: "Web Development",
+		name: 'Web Development',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
 		icon: <FiPenTool />,
-		name: "Branding",
+		name: 'Branding',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
 		icon: <FiTag />,
-		name: "SEO",
+		name: 'SEO',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 ];
 // candidates
 export const candidates = [
 	{
-		id: "1",
-		name: "Abdullahi Sunday",
+		id: '1',
+		name: 'Abdullahi Sunday',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
-		id: "2",
-		name: "Adekunle Bulus",
+		id: '2',
+		name: 'Adekunle Bulus',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
-		id: "3",
-		name: "Adeize Muzamile",
+		id: '3',
+		name: 'Adeize Muzamile',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 	{
-		id: "4",
-		name: "Fatima Chibozor",
+		id: '4',
+		name: 'Fatima Chibozor',
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.",
+			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio perferendis volm quibusdam ullam qui dolore.',
 	},
 ];
 
@@ -176,16 +176,16 @@ export const candidates = [
 export const contact = [
 	{
 		icon: <FiMail />,
-		title: "Have a question?",
-		subtitle: "I am here to help you.",
-		description: "Email me at hello@youremail.com",
-		contact: "https://github.com/devAbdulsalam",
+		title: 'Have a question?',
+		subtitle: 'I am here to help you.',
+		description: 'Email me at hello@youremail.com',
+		contact: 'https://github.com/devAbdulsalam',
 	},
 	{
 		icon: <FiMapPin />,
-		title: "Abdulsalam",
-		subtitle: "MERN FullStack developer, Frontend Developer",
-		description: "Serving clients worldwide",
-		contact: "https://github.com/devAbdulsalam",
+		title: 'Abdulsalam',
+		subtitle: 'MERN FullStack developer, Frontend Developer',
+		description: 'Serving clients worldwide',
+		contact: 'https://github.com/devAbdulsalam',
 	},
 ];
