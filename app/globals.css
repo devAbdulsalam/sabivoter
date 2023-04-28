@@ -3,59 +3,62 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide leading-6
-    }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-semibold text-white
-    }
-    .section {
-        @apply py-12 lg:py-32;
-    }
+	body {
+		@apply bg-[#ecf0f3] text-[#1f2937] tracking-wide leading-6 relative;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-semibold text-white;
+	}
+	.section {
+		@apply py-12 lg:py-32;
+	}
 
-    .section-title {
-        @apply text-3xl lg:text-4xl font-medium lg:font-extrabold mb-5;
-    }
+	.section-title {
+		@apply text-3xl lg:text-4xl font-medium lg:font-extrabold mb-5;
+	}
 
-    .subtitle {
-        @apply text-base text-paragraph mb-16 lg:mb-24 max-w-[520px];
-    }
-    li {
-        @apply cursor-pointer
-    }
-    .btn {
-        @apply py-4 px-7 font-medium text-white flex items-center justify-center rounded-sm hover:bg-[925a2b] transition-all;
-    }
+	.subtitle {
+		@apply text-base text-paragraph mb-16 lg:mb-24 max-w-[520px];
+	}
+	li {
+		@apply cursor-pointer;
+	}
+	.btn {
+		@apply py-4 px-7 font-medium text-white flex items-center justify-center rounded-sm hover:bg-[925a2b] transition-all;
+	}
 
-    .btn-lg {
-        @apply h-[54px];
-    }
+	.btn-lg {
+		@apply h-[54px];
+	}
 
-    .btn-md {
-        @apply h-[48px];
-    }
-    .input {
-        @apply bg-gray-300 text-secondary h-[60px] outline-none pl-6 w-full  text-[15px] rounded-sm focus:outline focus:outline-1 focus:outline-accent;
-    }
+	.btn-md {
+		@apply h-[48px];
+	}
+	.primary-button {
+		@apply rounded bg-amber-300 py-2 px-4 shadow outline-none hover:bg-amber-400  active:bg-amber-500;
+	}
+	.input {
+		@apply bg-gray-300 text-secondary h-[60px] outline-none pl-6 w-full  text-[15px] rounded-sm focus:outline focus:outline-1 focus:outline-accent;
+	}
 
-    .textarea {
-        @apply bg-gray-300 resize-none w-full outline-none p-6 rounded-sm h-[200px] focus:outline focus:outline-1 focus:outline-accent;
-    }
-    .active {
-        @apply text-[925a2b];
-    }
+	.textarea {
+		@apply bg-gray-300 resize-none w-full outline-none p-6 rounded-sm h-[200px] focus:outline focus:outline-1 focus:outline-accent;
+	}
+	.active {
+		@apply text-[925a2b];
+	}
 }
 
 html {
-    scroll-behavior: smooth;
-    font-family: 'Raleway', sans-serif;
+	scroll-behavior: smooth;
+	font-family: 'Raleway', sans-serif;
 }
 
-.debug{
-    border: 1px red solid;
+.debug {
+	border: 1px red solid;
 }

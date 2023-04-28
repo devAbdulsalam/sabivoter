@@ -2,7 +2,9 @@
 import { useSession, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { useState } from 'react';
+import Link from 'next/link';
 import { useModalContext } from '@/context/ModalContext';
+import hero from '@/public/assets/avatar.png';
 
 const SignInButton = () => {
 	const { status, data: session } = useSession();
@@ -23,8 +25,8 @@ const SignInButton = () => {
 					<button onClick={handleShowProfile}>
 						{session?.user?.image ? (
 							<Image
-								src={session?.user?.user?.image}
-								alt={session?.user?.user?.name}
+								src={user?.image ? user?.image?.url : hero}
+								alt={session?.user?.name}
 								className="inline-block rounded-full"
 								fill
 							/>
@@ -48,23 +50,27 @@ const SignInButton = () => {
 									: 'hidden top-0 left-20'
 							} absolute rounded-md mr-2 bg-white z-[995] text-gray-800 transition-all duration-300 ease-in-out place-items-center`}
 						>
-							<div className="pt-4 w-full">
-								<div className="space-y-2 text-base w-full">
-									<h2 className="text-gray-800 px-2 hover:bg-gray-50 transition duration-300 ease-in-out">
-										{session?.user?.user?.name}
+							<div className="pt-4 w-full" onClick={handleShowProfile}>
+								<div className="text-base w-full">
+									<Link
+										href="/me"
+										className="text-gray-800 px-2 w-full py-2 hover:bg-gray-50 transition duration-300 ease-in-out"
+									>
+										{session?.user?.name}
+									</Link>
+									<h2 className="text-gray-800 px-2 py-2 hover:bg-gray-50 transition duration-300 ease-in-out">
+										{session?.user?.email}
 									</h2>
 									<h2 className="text-gray-800 px-2 py-2 hover:bg-gray-50 transition duration-300 ease-in-out">
-										{session?.user?.user?.email}
+										{session?.user?.email}
 									</h2>
 								</div>
-								<div className="mt-2">
-									<button
-										className="text-sm font-medium tracking-wider uppercase px-2 py-2 text-stone-800 bg-red-50 hover:bg-red-100 transition duration-300 ease-in-out w-full"
-										onClick={handleSignout}
-									>
-										Sign Out
-									</button>
-								</div>
+								<button
+									className="text-sm font-medium tracking-wider uppercase px-2 py-2 text-stone-800 bg-red-50 hover:bg-red-100 transition duration-300 ease-in-out w-full"
+									onClick={handleSignout}
+								>
+									Sign Out
+								</button>
 							</div>
 						</div>
 					) : (

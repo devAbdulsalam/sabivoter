@@ -1,4 +1,4 @@
-{
+ {
   "name": "next-project",
   "version": "0.1.0",
   "private": true,
@@ -27,10 +27,13 @@
     "next-connect": "^0.13.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
     "react-intersection-observer": "^9.4.3",
+    "react-js-pagination": "^3.0.3",
     "react-scroll": "^1.8.9",
+    "react-toastify": "^9.1.2",
     "typescript": "4.9.5"
   },
   "devDependencies": {

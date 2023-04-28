@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 // import social data
 import { social } from '@/utils/Data';
-
 // import logo
 import Logo from '@/public/assets/logo.svg';
 

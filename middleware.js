@@ -15,7 +15,7 @@ export default withAuth(
 			);
 		}
 
-		if (req.nextUrl.pathname.match('/') && req?.token !== 'authenticated') {
+		if (req.nextUrl.pathname.match('/me') && req?.token !== 'authenticated') {
 			// console.log("request", req.nextUrl.pathname);
 			console.log(req?.token);
 			return NextResponse.rewrite(
@@ -33,6 +33,6 @@ export default withAuth(
 );
 
 export const config = {
-	// matcher: ['/admin/:path*'],
-	matcher: ['/me'],
+	matcher: ['/admin/:path*'],
+	// matcher: ['/me'],
 };

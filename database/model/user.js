@@ -1,4 +1,4 @@
-import { Schema, models, model } from "mongoose";
+import { Schema, models, model } from 'mongoose';
 
 const userSchema = new Schema(
 	{
@@ -28,15 +28,15 @@ const userSchema = new Schema(
 		},
 		role: {
 			type: String,
-			default: "user",
+			default: 'user',
 		},
-		eligible: [
+		election: [
 			{
-				election: String,
-			},
-		],
-		voted: [
-			{
+				voted: {
+					type: Boolean,
+					default: false,
+				},
+				name: String,
 				election: String,
 				candidate: String,
 				date: { type: Date, default: Date.now().toString() },
@@ -44,7 +44,8 @@ const userSchema = new Schema(
 		],
 		password: {
 			type: String,
-			require: true,
+			required: [true, 'Please enter your password'],
+			minLength: [6, 'Your password must be longer than 6 characters'],
 		},
 		state: {
 			type: String,
@@ -56,6 +57,6 @@ const userSchema = new Schema(
 	{ timestamps: true }
 );
 
-const Users = models.user || model("user", userSchema);
+const Users = models.user || model('user', userSchema);
 
 export default Users;

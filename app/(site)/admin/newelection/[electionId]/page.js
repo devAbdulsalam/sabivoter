@@ -15,10 +15,10 @@ const newcandidate = ({ params }) => {
 	// //textFeilds
 	const [name, setName] = useState('');
 	const [election, setElection] = useState('');
+	const [elections, setElections] = useState([]);
 	const [party, setParty] = useState('');
 	const [profile, setProfile] = useState('');
-	const [elections, setElections] = useState([]);
-	const [option, setOptions] = useState([]);
+	// const [option, setOptions] = useState([]);
 	useEffect(() => {
 		axios
 			.get('http://localhost:3000/api/elections')
@@ -31,10 +31,11 @@ const newcandidate = ({ params }) => {
 				console.log(error?.response?.data?.error);
 			});
 	}, [params]);
-	useEffect(() => {
-		const option = elections.filter((item) => item._id === params.electionId);
-		setOptions(option);
-	}, [elections]);
+	// useEffect(() => {
+	// 	const option = elections.filter((item) => item._id === params.electionId);
+	// 	setOptions(option);
+	// 	console.log(option)
+	// }, [elections]);
 
 	const handleOptionChange = (e) => {
 		setElection(e.target.value);
@@ -42,7 +43,6 @@ const newcandidate = ({ params }) => {
 
 	const handleUpload = async (e) => {
 		setIsLoading(true);
-		console.log(election);
 		try {
 			if (!selectedFile || !name === '' || !election === '' || !party === '') {
 				setIsError('All fields are required');
@@ -59,10 +59,11 @@ const newcandidate = ({ params }) => {
 			formData.append('election', election);
 			formData.append('party', party);
 			formData.append('profile', profile);
-			const data = await axios.post(
-				`http://localhost:3000/api/candidate`,
-				formData
-			);
+			const data = await axios.post(`/api/candidate`, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			});
 			console.log(data);
 			setIsLoading(false);
 			setIsError(null);
@@ -162,7 +163,7 @@ const newcandidate = ({ params }) => {
 								value={election}
 								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 							>
-								{option?.map((item, idx) => {
+								{elections?.map((item, idx) => {
 									return (
 										<option key={idx} value={item._id}>
 											{item.electionName}

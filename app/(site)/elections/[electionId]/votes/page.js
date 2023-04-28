@@ -3,10 +3,6 @@ import { getData } from "@/utils/AxiosApis";
 import Tr from "./Tr";
 const page = async ({ params }) => {
 	let data = await getData(`http://localhost:3000/api/users`);
-	// if (data) {
-	// 	console.log(data);
-	// 	console.log(params);
-	// }
 	return (
 		<div className="items-center w-full px-4 py-8 mx-auto my-2 text-green-500 bg-white rounded-lg shadow-md sm:w-11/12">
 			<div className="container mx-auto">

@@ -1,6 +1,8 @@
 /** Candidate Controller */
 import Candidate from '../model/candidate';
-import uploads from '@/utils/cloudinary';
+import { uploads } from '@/utils/cloudinary';
+import fs from 'fs';
+import connectMDB from '@/database/connMDB';
 
 // get : http://localhost:3000/api/candidate
 export async function getCandidates(req, res) {
@@ -33,18 +35,23 @@ export async function getCandidate(req, res) {
 
 // post : http://localhost:3000/api/addcandidates
 export async function addCandidate(req, res) {
-	console.log(req.body);
+	connectMDB().catch(() =>
+		res.status(405).json({ error: 'Error in the Connection' })
+	);
 	const { name, party, profile, election } = req.body;
+	let image;
 
+	if (!name || !party) {
+		return res.status(404).json({ error: 'Form Data Not Provided...!' });
+	}
 	try {
-		if (!name || !party || !election) {
-			return res.status(404).json({ error: 'Form Data Not Provided...!' });
-		}
 		if (req.files.length > 0) {
-			const uploader = async (path) => uploads(path, 'sabivoter/candidates');
 			const file = req.files[0];
 			const { path } = file;
-			const canImage = await uploader(path);
+			const canImage = await uploads(path, 'sabivoters/candidates');
+			if (!canImage) {
+				return res.status(404).json({ error: 'Unable to upload Image' });
+			}
 			fs.unlinkSync(path);
 			image = canImage;
 		}

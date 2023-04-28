@@ -1,7 +1,9 @@
-import connectMDB from '@/database/connMDB';
+// import connectMDB from '@/database/connMDB';
+// import upload from '@/utils/multer';
 import { addCandidate } from '@/database/controller/candidate';
-import upload from '@/utils/multer';
 import nc from 'next-connect';
+import multer from 'multer';
+import path from 'path';
 
 export const config = {
 	api: {
@@ -9,21 +11,19 @@ export const config = {
 	},
 };
 
-const uploadMiddleware = upload.array('image');
-
-const handler = nc({
-	onError: (err, req, res, next) => {
-		console.error(err.stack);
-		res.status(500).end('Something broke!');
-	},
-	onNoMatch: (req, res, next) => {
-		res.status(404).end('Page is not found');
-	},
+const upload = multer({
+	storage: multer.diskStorage({
+		destination: function (req, file, cb) {
+			cb(null, path.join(process.cwd(), 'public', 'uploads'));
+		},
+		filename: function (req, file, cb) {
+			cb(null, new Date().getTime() + '-' + file.originalname);
+		},
+	}),
 });
 
-connectMDB().catch(() =>
-	res.status(405).json({ error: 'Error in the Connection' })
-);
+const uploadMiddleware = upload.array('image');
+const handler = nc();
 
 handler.use(uploadMiddleware).post(addCandidate);
 

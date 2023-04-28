@@ -1,9 +1,7 @@
 import React from 'react';
-
+import Profile from '@/components/user/Profile';
 const ProfilePage = async () => {
-	// const addresses = await getAddresses();
-
-	return <Profile addresses={addresses} />;
+	return <Profile />;
 };
 
 export default ProfilePage;

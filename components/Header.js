@@ -22,7 +22,7 @@ const Header = () => {
 	return (
 		<header
 			className={`${
-				bg ? 'bg-gray-100 h-20' : 'h-24'
+				bg ? 'bg-gray-100 h-18' : 'h-20'
 			} flex items-center  fixed top-0 w-full text-white z-10 transition-all duration-300 shadow-md`}
 		>
 			<div className="container mx-auto h-full flex items-center justify-between">
