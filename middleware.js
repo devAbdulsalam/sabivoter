@@ -3,15 +3,17 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export default withAuth(
 	function middleware(req) {
+		console.log('request', req.nextUrl.pathname);
+		console.log(req?.token);
 		if (
 			req.nextUrl.pathname.startsWith('/admin') &&
 			req?.token === 'authenticated' &&
 			req?.token?.role !== 'admin'
 		) {
-			// console.log("request", req.nextUrl.pathname);
+			console.log('request', req.nextUrl.pathname);
 			// console.log(req.cookies);
 			return NextResponse.rewrite(
-				new URL('/signin?message=You are not Authorize!', req.url)
+				new URL('/unauthorized?message=You are not Authorize!', req.url)
 			);
 		}
 
@@ -22,17 +24,21 @@ export default withAuth(
 				new URL('/signin?message=You are not Authorize!', req.url)
 			);
 		}
+		if (req.nextUrl.pathname.match('/dashboard')) {
+			return NextResponse.rewrite(new URL(req.url));
+		}
 	},
 	{
 		callbacks: {
-			authorized(token) {
-				return token?.role === 'admin';
+			authorized: (params) => {
+				let { token } = params;
+				// return token?.role === 'admin';
+				return !!token;
 			},
 		},
 	}
 );
 
 export const config = {
-	matcher: ['/admin/:path*'],
-	// matcher: ['/me'],
+	matcher: ['/me', '/admin/:path*'],
 };

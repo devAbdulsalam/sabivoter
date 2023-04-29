@@ -1,14 +1,17 @@
-import { useRouter } from 'next/navigation';
+'use client'
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export const metadata = {
-	title: 'Sabi voter || Unauthorized Page',
-	description: 'Unauthorized Page',
-};
+// export const metadata = {
+// 	title: 'Sabi voter || Unauthorized Page',
+// 	description: 'Unauthorized Page',
+// };
 
 export default function Unauthorized() {
-	const router = useRouter();
-	const { message } = router.query;
+	// const router = useRouter();
+	 const searchParams = useSearchParams();
+
+		const message = searchParams.get('search');
 
 	return (
 		<>

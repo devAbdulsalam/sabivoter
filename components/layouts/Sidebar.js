@@ -23,11 +23,11 @@ const Sidebar = () => {
 						alt="avatar"
 					/>
 					<p className="mx-2 mt-1 text-md font-medium  text-black-500 -yellow-400 ">
-						Abdulsalam M.
+						{session?.user?.name}
 					</p>
 
 					<p className="mx-2 mt-1 text-sm font-medium  text-black -yellow-400 ">
-						A1122333445
+						{session?.user?.role}
 					</p>
 				</div>
 				<div className="flex flex-col justify-between flex-1 mt-10  ">
@@ -56,7 +56,7 @@ const Sidebar = () => {
 							</svg>
 							<span className="text-sm ml-2">Dashboard</span>
 						</Link>
-						{session?.user ? (
+						{session?.user && session?.user?.role === "admin" ? (
 							<>
 								<Link
 									href="/admin/newelection"
