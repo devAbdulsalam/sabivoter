@@ -54,7 +54,7 @@ const page = async ({ params }) => {
 								href={`dashboard/${params.electionId}/votes`}
 								className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 							>
-								View Result
+								View Election Result
 							</Link>
 						</div>
 					</div>
