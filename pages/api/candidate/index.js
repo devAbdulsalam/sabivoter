@@ -1,6 +1,7 @@
 // import connectMDB from '@/database/connMDB';
 // import upload from '@/utils/multer';
 import { addCandidate } from '@/database/controller/candidate';
+import { isAuthenticatedUser } from '@/database/middleware/auth';
 import nc from 'next-connect';
 import multer from 'multer';
 import path from 'path';
@@ -25,6 +26,6 @@ const upload = multer({
 const uploadMiddleware = upload.array('image');
 const handler = nc();
 
-handler.use(uploadMiddleware).post(addCandidate);
+handler.use(isAuthenticatedUser, uploadMiddleware).post(addCandidate);
 
 export default handler;

@@ -9,8 +9,10 @@ import Hero from '@/public/assets/avatar.png';
 const UpdateProfile = () => {
 	const { data: session } = useSession();
 	const [loading, setLoading] = useState(false);
-	const [name, setName] = useState(false);
-	const [email, setEmail] = useState(false);
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [avatar, setAvatar] = useState('');
+	const [avatarPreview, setAvatarPreview] = useState('/images/default.png');
 
 	useEffect(() => {
 		setName(session?.user?.name);
@@ -41,6 +43,43 @@ const UpdateProfile = () => {
 			toast.error(getError(err));
 		}
 	};
+	
+
+	useEffect(() => {
+		if (user) {
+			setName(user.name);
+			setEmail(user.email);
+		}
+
+		if (error) {
+			toast.error(error);
+			clearErrors();
+		}
+	}, [error, user]);
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+
+		const formData = new FormData();
+		formData.set('name', name);
+		formData.set('email', email);
+		formData.set('image', avatar);
+
+		updateProfile(formData);
+	};
+
+	const onChange = (e) => {
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			if (reader.readyState === 2) {
+				setAvatarPreview(reader.result);
+			}
+		};
+
+		setAvatar(e.target.files[0]);
+		reader.readAsDataURL(e.target.files[0]);
+	};
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="mx-auto max-w-screen-md">
@@ -54,6 +93,8 @@ const UpdateProfile = () => {
 						placeholder="Type your name"
 						required
 						value={name}
+						
+              onChange={(e) => setName(e.target.value)}
 					/>
 				</div>
 
@@ -65,6 +106,8 @@ const UpdateProfile = () => {
 						placeholder="Type your email"
 						required
 						value={email}
+						
+              onChange={(e) => setEmail(e.target.value)}
 					/>
 				</div>
 
@@ -79,6 +122,7 @@ const UpdateProfile = () => {
 								className="form-control block w-full px-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mt-6"
 								type="file"
 								id="formFile"
+								onChange={onChange}
 							/>
 						</div>
 					</div>

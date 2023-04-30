@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export default withAuth(
 	function middleware(req) {
 		console.log('request', req.nextUrl.pathname);
-		console.log(req?.token);
+		console.log(req?.user);
 		if (
 			req.nextUrl.pathname.startsWith('/admin') &&
 			req?.token === 'authenticated' &&
@@ -17,13 +17,13 @@ export default withAuth(
 			);
 		}
 
-		if (req.nextUrl.pathname.match('/me') && req?.token !== 'authenticated') {
-			// console.log("request", req.nextUrl.pathname);
-			console.log(req?.token);
-			return NextResponse.rewrite(
-				new URL('/signin?message=You are not Authorize!', req.url)
-			);
-		}
+		// if (req.nextUrl.pathname.match('/me') && req?.token !== 'authenticated') {
+		// 	// console.log("request", req.nextUrl.pathname);
+		// 	console.log(req?.token);
+		// 	return NextResponse.rewrite(
+		// 		new URL('/signin?message=You are not Authorize!', req.url)
+		// 	);
+		// }
 		if (req.nextUrl.pathname.match('/dashboard')) {
 			return NextResponse.rewrite(new URL(req.url));
 		}

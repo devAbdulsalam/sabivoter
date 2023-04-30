@@ -25,7 +25,7 @@ const SignInButton = () => {
 					<button onClick={handleShowProfile}>
 						{session?.user?.image ? (
 							<Image
-								src={user?.image ? user?.image?.url : hero}
+								src={session?.user?.image ? session?.user?.image?.url : hero}
 								alt={session?.user?.name}
 								className="inline-block rounded-full"
 								fill

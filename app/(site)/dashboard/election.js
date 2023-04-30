@@ -7,7 +7,7 @@ const Election = ({ election }) => {
 	};
 	return (
 		<div className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
-			<Link className="text-xl font-semibold capitalize" href={`/elections/${id}`}>
+			<Link className="text-xl font-semibold capitalize" href={`/dashboard/${id}`}>
 				{electionName}
 			</Link>
 			<p className="text-green-500 pt-2 whitespace-nowrap text-sm">
@@ -35,7 +35,7 @@ const Election = ({ election }) => {
 							Vote
 						</button>
 						<Link
-							href={`elections/${id}/votes`}
+							href={`dashboard/${id}/votes`}
 							className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 						>
 							View Result
@@ -43,7 +43,7 @@ const Election = ({ election }) => {
 					</div>
 				) : (
 					<Link
-						href={`elections/${id}/votes`}
+						href={`dashboard/${id}/votes`}
 						className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 					>
 						View Result

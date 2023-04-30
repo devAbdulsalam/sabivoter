@@ -131,7 +131,7 @@ export default function ProfileScreen() {
 				</div>
 				<div className="mb-4">
 					<button className="primary-button">
-						{loading ? 'Updating' : 'Update Profile'}
+						{loading ? 'Updating' : 'Update Password'}
 					</button>
 				</div>
 			</form>

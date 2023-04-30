@@ -1,13 +1,13 @@
+'use client'
 // import React from "react";
-import { getData } from "@/utils/AxiosApis";
-import Tr from "./Tr";
-const page = async ({ params }) => {
-	let data = await getData(`http://localhost:3000/api/users`);
+// import { getData } from "@/utils/AxiosApis";
+import Tbody from '../../../me/my_votes/Tbody';
+const page = async () => {
 	return (
 		<div className="items-center w-full px-4 py-8 mx-auto my-2 text-green-500 bg-white rounded-lg shadow-md sm:w-11/12">
 			<div className="container mx-auto">
 				<div className="flex justify-between w-full px-4 py-2 items-center">
-					<div className="text-xl font-bold">List of Candidates</div>
+					<div className="text-xl font-bold">My Votes</div>
 					<button className="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none">
 						Print results
 					</button>
@@ -88,11 +88,7 @@ const page = async ({ params }) => {
 								<th className="px-4 py-3">Percentage</th>
 							</tr>
 						</thead>
-						<tbody className="text-xs md:text-sm font-normal text-gray-700 text-center">
-							{data.map((obj, idx) => (
-								<Tr key={obj._id || idx} obj={obj} idx={idx} />
-							))}
-						</tbody>
+						<Tbody />
 					</table>
 				</div>
 				<div className="flex flex-col items-center w-full px-4 py-4 text-sm text-gray-500 justify-center mx-auto">

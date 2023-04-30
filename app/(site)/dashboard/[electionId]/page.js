@@ -1,17 +1,24 @@
-// "use server"
-// import React from 'react'
-import Image from "next/image";
-import Link from "next/link";
-import avatar from "../../../../public/assets/avatar.png";
-import { notFound } from "next/navigation";
-import { getData } from "../../../../utils/AxiosApis";
+import Image from 'next/image';
+import Link from 'next/link';
+import avatar from '@/public/assets/avatar.png';
+import { notFound } from 'next/navigation';
+import { getData } from '@/utils/AxiosApis';
+import BreadCrumbs from '@/components/ui';
 
 const page = async ({ params }) => {
-	let election = await getData(`elections/${params.electionId}/votes`);	
+	let election = await getData(`elections/${params.electionId}`);
+	const breadCrumbs = [
+		{ name: 'Home', url: '/' },
+		{
+			name: `${election?.electionName?.substring(0, 100)} ...`,
+			url: `/elections/${election?.electionId}`,
+		},
+	];
 	if (!election) return notFound();
 
 	return (
 		<section className="section w-full flex flex-col gap-1 py-10 px-10">
+			<BreadCrumbs breadCrumbs={breadCrumbs} />
 			<div className="container">
 				<h2 className="text-center text-title py-2 text-2xl text-green-500 font-semibold">
 					{election.electionName || 'Election Name'}
@@ -38,13 +45,13 @@ const page = async ({ params }) => {
 						</div>
 						<div className="flex gap-4 space-x-2 mt-2">
 							<Link
-								href={`elections/${params.electionId}/candidates`}
+								href={`dashboard/${params.electionId}/candidates`}
 								className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 							>
 								Candidate
 							</Link>
 							<Link
-								href={`elections/${params.electionId}/votes`}
+								href={`dashboard/${params.electionId}/votes`}
 								className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 							>
 								View Result
