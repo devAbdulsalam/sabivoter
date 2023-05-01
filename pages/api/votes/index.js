@@ -1,16 +1,18 @@
 import connectMDB from '@/database/connMDB';
-import {
-	getVotes,
-	vote,
-	deleteVote,
-} from '@/database/controller/vote';
+import { getVotes, vote, deleteVote} from '@/database/controller/vote';
+// import { isAuthenticatedUser } from '@/database/middleware/auth';
 
-export default async function handler(req, res) {
+// import nc from 'next-connect';
+
+// const handler = nc()
+// handler.use(isAuthenticatedUser).get(getVotes);
+// export default handler;
+
+export default function handler(req, res) {
 	connectMDB().catch(() =>
 		res.status(405).json({ error: 'Error in the Connection' })
 	);
-
-	// type of request
+	// //type of request
 	const { method } = req;
 
 	switch (method) {

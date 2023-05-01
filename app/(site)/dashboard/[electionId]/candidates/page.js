@@ -9,10 +9,24 @@ import axios from 'axios';
 import { useAnimation, motion } from 'framer-motion';
 import { ProjAnimation, SingleProjectAnim } from '@/utils/animation';
 import { useInView } from 'react-intersection-observer';
+import BreadCrumbs from '@/components/ui/BreadCrumbs';
+import VoteBtn from '@/components/ui/VoteBtn';
 
 const Candidate = ({ params }) => {
 	const [candidates, setCandidates] = useState([]);
 	const [error, setError] = useState(false);
+	const breadCrumbs = [
+		{ name: 'Home', url: '/' },
+		{
+			// name: `${election?.electionName?.substring(0, 100)} ...`,
+			name: `electionName`,
+			url: `/dashboard/${params.electionId}/candidates/${params?.electionId}`,
+		},
+		{
+			name: `candidates`,
+			url: `/dashboard/${params?.electionId}/candidates`,
+		},
+	];
 	useEffect(() => {
 		axios
 			.get(`/api/elections/${params.electionId}/candidate`, {
@@ -47,7 +61,8 @@ const Candidate = ({ params }) => {
 	}
 	if (candidates) {
 		return (
-			<section id="candidate" className="h-[100%]">
+			<section id="candidate" className="w-full h-[100%]">
+				<BreadCrumbs breadCrumbs={breadCrumbs} />
 				<motion.div
 					ref={ref}
 					variants={ProjAnimation}
@@ -64,17 +79,17 @@ const Candidate = ({ params }) => {
 							veniam labore nisium illum cupiditate reiciendis a numquam
 						</p>
 					</div>
-					<div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 debug">
 						{candidates?.map((candidate, index) => {
 							const { name, _id, image, party } = candidate;
 							return (
 								<motion.div
 									variants={SingleProjectAnim}
-									className="shadow-md p-3 rounded-md border"
+									className="shadow-md p-3 rounded-md border debug"
 									key={index}
 								>
 									<Link
-										href={`dashboard/${params.electionId}/candidates/${_id}`}
+										href={`/dashboard/${params.electionId}/candidates/${_id}`}
 										className="text-accent rounded-sm flex justify-center items-center mb-2"
 									>
 										<Image
@@ -82,7 +97,7 @@ const Candidate = ({ params }) => {
 											alt="candidate"
 											width={120}
 											height={120}
-											className="mx-auto object-cover"
+											className="mx-auto object-cover w-auto h-auto jj"
 										/>
 									</Link>
 									<h4 className="text-xl font-medium mb-2 text-gray-500">
@@ -93,16 +108,17 @@ const Candidate = ({ params }) => {
 										<span className="text-gray-800">Party: </span>
 										{party}
 									</h3>
-									<div className="flex gap-2">
+									<div className="flex gap-2 justify-between">
+										<VoteBtn
+											election={params.electionId}
+											candidate={candidate}
+										/>
 										<Link
-											href={`dashboard/${params.electionId}/candidates/${_id}`}
+											href={`/dashboard/${params.electionId}/candidates/${_id}`}
 											className="btn md:btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 										>
 											Profile
 										</Link>
-										<button className="btn md:btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all">
-											Vote
-										</button>
 									</div>
 								</motion.div>
 							);

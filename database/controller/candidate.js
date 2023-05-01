@@ -19,7 +19,7 @@ export async function getCandidates(req, res) {
 
 // get : http://localhost:3000/api/candidate/1
 export async function getCandidate(req, res) {
-	console.log(req.query);
+	// console.log(req.query);
 	try {
 		const { candidateId } = req.query;
 

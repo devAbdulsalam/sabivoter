@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Vote from './Vote';
+import Vote from '../../../components/ui/VoteBtn';
 
 const page = async () => {
 	return (

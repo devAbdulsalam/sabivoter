@@ -3,7 +3,7 @@ import Link from 'next/link';
 import avatar from '@/public/assets/avatar.png';
 import { notFound } from 'next/navigation';
 import { getData } from '@/utils/AxiosApis';
-import BreadCrumbs from '@/components/ui';
+import BreadCrumbs from '@/components/ui/BreadCrumbs';
 
 const page = async ({ params }) => {
 	let election = await getData(`elections/${params.electionId}`);
@@ -17,9 +17,9 @@ const page = async ({ params }) => {
 	if (!election) return notFound();
 
 	return (
-		<section className="section w-full flex flex-col gap-1 py-10 px-10">
+		<section className="w-full">
 			<BreadCrumbs breadCrumbs={breadCrumbs} />
-			<div className="container">
+			<div className="py-10 px-10">
 				<h2 className="text-center text-title py-2 text-2xl text-green-500 font-semibold">
 					{election.electionName || 'Election Name'}
 				</h2>
@@ -28,6 +28,8 @@ const page = async ({ params }) => {
 						<Image
 							src={election.image || avatar}
 							alt="election"
+							width={120}
+							height={120}
 							className="rounded-md"
 						/>
 					</div>

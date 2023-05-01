@@ -20,6 +20,8 @@ const Sidebar = () => {
 					<Image
 						className="object-cover w-16 h-16 border-2 border-black bg-green-50 mx-2 my-2 rounded-full "
 						src={avatar}
+						width={100}
+						height={100}
 						alt="avatar"
 					/>
 					<p className="mx-2 mt-1 text-md font-medium  text-black-500 -yellow-400 ">
@@ -56,11 +58,11 @@ const Sidebar = () => {
 							</svg>
 							<span className="text-sm ml-2">Dashboard</span>
 						</Link>
-						{session?.user && session?.user?.role === "admin" ? (
+						{session?.user && session?.user?.role === 'admin' ? (
 							<>
 								<Link
 									href="/admin/newelection"
-									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-6 hover:bg-blue-100 hover:text-blue-500"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-1 hover:bg-blue-100 hover:text-blue-500"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +84,7 @@ const Sidebar = () => {
 								</Link>
 								<Link
 									href="admin/votes"
-									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-6 hover:bg-blue-100 hover:text-blue-500"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +105,7 @@ const Sidebar = () => {
 								</Link>
 								<Link
 									href="myvote"
-									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-6 hover:bg-blue-100 hover:text-blue-500"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

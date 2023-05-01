@@ -63,7 +63,7 @@ const page = ({ params }) => {
 								alt="candidate"
 								width={120}
 								height={120}
-								className="mx-auto object-cover"
+								className="mx-auto object-cover w-auto h-auto kkgk"
 							/>
 						</div>
 						<div className="mx-2">
