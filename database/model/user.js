@@ -30,14 +30,14 @@ const userSchema = new Schema(
 			type: String,
 			default: 'user',
 		},
-		election: [
+		eligible: [
 			{
 				voted: {
 					type: Boolean,
 					default: false,
 				},
-				name: String,
 				election: String,
+				electionId: String,
 				candidate: String,
 				date: { type: Date, default: Date.now().toString() },
 			},

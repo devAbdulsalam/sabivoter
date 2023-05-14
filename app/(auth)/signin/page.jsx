@@ -20,15 +20,16 @@ const page = ({ searchParams }) => {
 			router.push('/');
 		}
 	}, [router, session]);
-	// console.log(searchParams); 
+	// console.log(searchParams);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = { email, password };
-		setIsLoading(true);
 		if (!data) {
 			return error('Please fill all inputs');
 		}
+		console.log(data);
+		setIsLoading(true);
 		setIsError(null);
 		const res = await signIn('credentials', {
 			email,
@@ -56,10 +57,7 @@ const page = ({ searchParams }) => {
 					{searchParams?.message}
 				</p>
 			)}
-			<form
-				onSubmit={handleSubmit}
-				className="w-full md:max-w-[450px] mx-auto shadow-md rounded-md flex flex-col p-2"
-			>
+			<form className="w-full md:max-w-[450px] mx-auto shadow-md rounded-md flex flex-col p-2">
 				<div className="my-1">
 					<label htmlFor="email" className="text-lg font-semibold">
 						Email
@@ -90,6 +88,8 @@ const page = ({ searchParams }) => {
 				</div>
 				<div>
 					<button
+						type="submit"
+						onClick={handleSubmit}
 						className="bg-[#228e01] w-full text-white py-3 my-2 mt-4 rounded font-semibold text-xl"
 						disabled={isLoading}
 					>

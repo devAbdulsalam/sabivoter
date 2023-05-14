@@ -85,7 +85,12 @@ export async function vote(req, res) {
 			_id: election,
 			'votes.voter': voter,
 		});
-		if (hasVoted) {
+		const hasVote = await User.exists({
+			_id: voter,
+			'eligible.electionId': election,
+		});
+
+		if (hasVoted || hasVote) {
 			return res
 				.status(409)
 				.json({ error: 'User has already voted in this election' });
@@ -96,12 +101,26 @@ export async function vote(req, res) {
 			{ $push: { votes: { voter, candidate } } },
 			{ new: true }
 		);
+		const voted = await User.findByIdAndUpdate(
+			{ _id: voter },
+			{
+				$push: {
+					eligible: {
+						election: electionExist.electionName,
+						electionId: election,
+						voted: true,
+						candidate,
+					},
+				},
+			},
+			{ new: true }
+		);
 
-		if (!vote) {
+		if (!vote || !voted) {
 			return res.status(404).json({ error: 'Error occurred while voting' });
 		}
 
-		return res.status(200).json({ vote, message: 'Voted successfully' });
+		return res.status(200).json({ vote, voted, message: 'Voted successfully' });
 	} catch (error) {
 		return res.status(500).json({ error: 'Error occurred while voting' });
 	}

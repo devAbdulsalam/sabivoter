@@ -9,6 +9,7 @@ import Hero from '@/public/assets/avatar.png';
 const UpdateProfile = () => {
 	const { data: session } = useSession();
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [avatar, setAvatar] = useState('');
@@ -44,18 +45,6 @@ const UpdateProfile = () => {
 		}
 	};
 	
-
-	useEffect(() => {
-		if (user) {
-			setName(user.name);
-			setEmail(user.email);
-		}
-
-		if (error) {
-			toast.error(error);
-			clearErrors();
-		}
-	}, [error, user]);
 
 	const submitHandler = (e) => {
 		e.preventDefault();

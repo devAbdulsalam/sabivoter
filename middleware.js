@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export default withAuth(
 	function middleware(req) {
 		console.log('request', req.nextUrl.pathname);
-		console.log(req?.user);
 		if (
 			req.nextUrl.pathname.startsWith('/admin') &&
 			req?.token === 'authenticated' &&

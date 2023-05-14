@@ -79,13 +79,13 @@ const Candidate = ({ params }) => {
 							veniam labore nisium illum cupiditate reiciendis a numquam
 						</p>
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 debug">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 						{candidates?.map((candidate, index) => {
 							const { name, _id, image, party } = candidate;
 							return (
 								<motion.div
 									variants={SingleProjectAnim}
-									className="shadow-md p-3 rounded-md border debug"
+									className="shadow-md p-3 rounded-md border"
 									key={index}
 								>
 									<Link

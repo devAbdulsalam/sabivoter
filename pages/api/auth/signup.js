@@ -1,32 +1,32 @@
-import bcryptjs from "bcryptjs";
-import User from "@/database/model/user";
-import connectMDB from "@/database/connMDB";
+import bcryptjs from 'bcryptjs';
+import User from '@/database/model/user';
+import connectMDB from '@/database/connMDB';
 
 async function handler(req, res) {
-	if (method !== 'POST') {
+	if (req.method !== 'POST') {
 		return res.status(405).end(`Method ${method} Not Allowd`);
 	}
 	const { name, email, password } = req.body;
 	if (
 		!name ||
 		!email ||
-		!email.includes("@") ||
+		!email.includes('@') ||
 		!password ||
 		password.trim().length < 5
 	) {
 		res.status(422).json({
-			message: "Validation error",
+			message: 'Validation error',
 		});
 		return;
 	}
 
 	await connectMDB().catch(() =>
-		res.status(405).json({ error: "Error in the Connection" })
+		res.status(405).json({ error: 'Error in the Connection' })
 	);
 
 	const existingUser = await User.findOne({ email });
 	if (existingUser) {
-		res.status(422).json({ message: "User exists already!" });
+		res.status(422).json({ message: 'User exists already!' });
 		// await db.disconnect();
 		return;
 	}
@@ -36,13 +36,13 @@ async function handler(req, res) {
 		email,
 		password: bcryptjs.hashSync(password),
 		isAdmin: false,
-		...req.body
+		...req.body,
 	});
 
 	const user = await newUser.save();
 	// await db.disconnect();
 	res.status(201).send({
-		message: "Created user!",
+		message: 'Created user!',
 		name,
 		email,
 		password,

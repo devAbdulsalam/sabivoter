@@ -1,8 +1,24 @@
 'use client'
-// import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 // import { getData } from "@/utils/AxiosApis";
 import Tbody from '../../../me/my_votes/Tbody';
-const page = async () => {
+const page = async (params) => {	
+	const [votes, setVotes] = useState([]);
+	const [error, setError] = useState(false);
+	useEffect(() => {
+		axios
+			.get(`/api/elections/${params.electionId}/votes`, {
+				credentials: 'include',
+			})
+			.then((res) => setVotes(() => res.data))
+			.catch((error) => {
+				setError(error?.response?.data?.error || error.message);
+			});
+	}, [params]);
+	useEffect(() => {
+		console.log(votes) 
+	}, [vote])
 	return (
 		<div className="items-center w-full px-4 py-8 mx-auto my-2 text-green-500 bg-white rounded-lg shadow-md sm:w-11/12">
 			<div className="container mx-auto">
