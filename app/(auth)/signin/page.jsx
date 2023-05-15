@@ -24,19 +24,21 @@ const page = ({ searchParams }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const data = { email, password };
+		let data = { email, password };
 		if (!data) {
 			return error('Please fill all inputs');
 		}
 		console.log(data);
 		setIsLoading(true);
 		setIsError(null);
+		
 		const res = await signIn('credentials', {
 			email,
 			password,
 			redirect: true,
 			callbackUrl: '/',
 		});
+		 data = await res.json();
 		if (res?.ok) {
 			setSuccess(data.messsage || 'Login Successfull');
 			setIsLoading(false);

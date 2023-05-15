@@ -1,5 +1,6 @@
 import connectMDB from '@/database/connMDB';
 import Election from '../model/election';
+import Party from '../model/party';
 import Candidate from '../model/candidate';
 import User from '../model/user';
 import fs from 'fs';
@@ -16,13 +17,18 @@ export async function getGeneralInfo(req, res) {
 		const elections = await Election.find({}).sort({
 			createdAt: -1,
 		});
+		const parties = await Party.find({}).sort({
+			createdAt: -1,
+		});
 		const candidates = await Candidate.find({}).sort({
 			createdAt: -1,
 		});
 		if (!elections) {
 			return res.status(404).json({ error: 'Elections not Found' });
 		}
-		res.status(200).json({ users, elections, candidates, msg: 'success' });
+		res
+			.status(200)
+			.json({ users, elections, parties, candidates, msg: 'success' });
 	} catch (error) {
 		res.status(404).json({ error: 'Error While Fetching Data' });
 	}

@@ -19,7 +19,7 @@ const election = async () => {
 				<div>
 					<div className="grid lg:grid-cols-4 gap-8">
 						<Link
-							href={`/dashboard/election`}
+							href={`/dashboard/elections`}
 							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
 						>
 							<div className="flex justify-center p-2">
@@ -27,6 +27,17 @@ const election = async () => {
 							</div>
 							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
 								{data.elections.length} + Elections
+							</h2>
+						</Link>
+						<Link
+							href={`/dashboard/political_parties`}
+							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
+						>
+							<div className="flex justify-center p-2">
+								<Image src={Hero} width={60} height={60} />
+							</div>
+							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
+								{data.parties.length} + political parties
 							</h2>
 						</Link>
 						<div className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
@@ -38,7 +49,6 @@ const election = async () => {
 							</h2>
 						</div>
 						<div className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
-							{' '}
 							<div className="flex justify-center p-2">
 								<Image src={Hero} width={60} height={60} />
 							</div>

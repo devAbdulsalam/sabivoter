@@ -45,6 +45,10 @@ export async function addCandidate(req, res) {
 		return res.status(404).json({ error: 'Form Data Not Provided...!' });
 	}
 	try {
+		const candidateExist = await Candidate.findOne({ name });
+		if (candidateExist) {
+			return res.status(404).json({ error: 'Candidate already Exist...!' });
+		}
 		if (req.files.length > 0) {
 			const file = req.files[0];
 			const { path } = file;
@@ -55,6 +59,7 @@ export async function addCandidate(req, res) {
 			fs.unlinkSync(path);
 			image = canImage;
 		}
+
 		const candidate = await Candidate.create({
 			name,
 			party,
@@ -142,3 +147,24 @@ export async function deleteCandidate(req, res) {
 		res.status(404).json({ error: 'Error While Deleting the User...!' });
 	}
 }
+
+export const countVote = async (req, res) => {
+	try {
+		const candidates = await Candidate.find({}, '_id partyName image');
+		const voteCounts = {};
+
+		for (const candidate of candidates) {
+			const candidateId = candidate._id;
+			const voteCount = await Voting.countDocuments({ candidateId });
+			voteCounts[candidateId] = {
+				voteCount,
+				partyName: candidate.partyName,
+				image: candidate.image,
+			};
+		}
+
+		return res.status(StatusCodes.OK).json(response({ data: voteCounts }));
+	} catch (error) {
+		console.log(console.error);
+	}
+};

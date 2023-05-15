@@ -1,55 +1,71 @@
-"use client";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import Link from "next/link";
-import axios from "axios";
+'use client';
+// import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
+import { signIn } from 'next-auth/react';
 
 export default function Page() {
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [nin, setNin] = useState("");
-	const [password, setPassword] = useState("");
-	const [password2, setPassword2] = useState("");
-	const [state, setState] = useState("");
-	const [country, setCountry] = useState("");
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [nin, setNin] = useState('');
+	const [password, setPassword] = useState('');
+	const [password2, setPassword2] = useState('');
+	const [state, setState] = useState('');
+	const [country, setCountry] = useState('');
 
 	const [error, setIsError] = useState(null);
 	const [success, setSuccess] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const { router } = useRouter();
 
 	const handleSignUp = async (e) => {
 		e.preventDefault();
 		const user = { name, email, nin, password, password2, state, country };
 		setIsLoading(true);
 		if (
-			!name === "" ||
-			!email === "" ||
-			!nin == "" ||
+			!name === '' ||
+			!email === '' ||
+			!nin == '' ||
 			!password ||
 			!password2 ||
-			!state === "" ||
-			!country === ""
+			!state === '' ||
+			!country === ''
 		) {
 			setIsError(null);
-			axios
-				.post("api/auth/signup", user)
+			const res = await axios
+				.post('api/auth/signup', user)
 				.then((res) => res.data)
 				.then((data) => {
-					console.log(data);
-					setSuccess(data?.msg);
-					setIsLoading(false);
-					// setTimeout(() => {
-					// 	router.redirect("/signin");
-					// }, 500);
+					setSuccess(data.messsage || 'Login Successfull');
+					setTimeout(() => {
+						setSuccess('');
+					}, 500);
 				})
 				.catch((error) => {
 					console.log(error);
 					setIsError(error?.response?.data?.msg || error?.message);
 					setIsLoading(false);
 				});
+			if (res) {
+				const response = await signIn('credentials', {
+					email,
+					password,
+					redirect: true,
+					callbackUrl: '/',
+				});
+				data = await response.json();
+				if (response.ok) {
+					setSuccess(data.messsage || 'Login Successfull');
+					setIsLoading(false);
+				}
+				if (!response.ok) {
+					console.log(error);
+					setIsError(error?.response?.data?.msg || error?.message);
+					setIsLoading(false);
+				}
+			}
 		} else {
-			setIsError("all inputs are required");
+			setIsError('all inputs are required');
 			setIsLoading(false);
 		}
 	};
@@ -168,7 +184,7 @@ export default function Page() {
 					className="bg-[#228e01] w-full text-white py-3 my-2 mt-4 rounded font-bold"
 					disabled={isLoading}
 				>
-					{isLoading ? "Signing up..." : "Sign up"}
+					{isLoading ? 'Signing up...' : 'Sign up'}
 				</button>
 				{error && (
 					<div className="error duration-500 p-2 bg-red-300 text-red-800 text-center text-lg border-red-700 border-2 rounded-md">
@@ -183,7 +199,7 @@ export default function Page() {
 				<p className="py-4 text-gray-600">
 					Already have an Account?
 					<Link href="/signin" className="text-green-700 cursor-pointer">
-						{" "}
+						{' '}
 						Login
 					</Link>
 				</p>
