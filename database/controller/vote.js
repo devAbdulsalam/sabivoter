@@ -143,3 +143,24 @@ export async function deleteVote(req, res) {
 		res.status(404).json({ error: 'Error While Deleting the Vote...!' });
 	}
 }
+
+export const countVote = async (req, res) => {
+	try {
+		const candidates = await Candidate.find({}, '_id partyName image');
+		const voteCounts = {};
+
+		for (const candidate of candidates) {
+			const candidateId = candidate._id;
+			const voteCount = await Election.countDocuments({ candidateId });
+			voteCounts[candidateId] = {
+				voteCount,
+				partyName: candidate.partyName,
+				image: candidate.image,
+			};
+		}
+
+		return res.status(StatusCodes.OK).json(response({ data: voteCounts }));
+	} catch (error) {
+		console.log(console.error);
+	}
+};

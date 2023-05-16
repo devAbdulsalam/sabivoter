@@ -8,10 +8,12 @@ const electionSchema = new Schema({
 	endAt: { type: String, required: true },
 	votes: [
 		{
-			voter: { type: String, unique: [true, 'You have already voted'], required: true },
-			candidate: { type: String, required: true },
-			date: { type: Date, default: Date.now().toString() },
-		},
+		candidate: {
+				voter: { type: String, unique: [true, 'You have already voted'], required: true },
+				party: { type: String, required: true },
+				date: { type: Date, default: Date.now().toString() },
+			},
+		}
 	],
 });
 

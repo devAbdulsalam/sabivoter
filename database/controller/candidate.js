@@ -1,5 +1,7 @@
 /** Candidate Controller */
 import Candidate from '../model/candidate';
+import Party from '../model/party';
+import Election from '../model/election';
 import { uploads } from '@/utils/cloudinary';
 import fs from 'fs';
 import connectMDB from '@/database/connMDB';
@@ -27,7 +29,7 @@ export async function getCandidate(req, res) {
 			const candidate = await Candidate.findById(candidateId);
 			res.status(200).json(candidate);
 		}
-		res.status(404).json({ error: 'User not Selected...!' });
+		res.status(404).json({ error: 'Candidate not Selected...!' });
 	} catch (error) {
 		res.status(404).json({ error: 'Cannot get the User...!' });
 	}
@@ -49,6 +51,7 @@ export async function addCandidate(req, res) {
 		if (candidateExist) {
 			return res.status(404).json({ error: 'Candidate already Exist...!' });
 		}
+		// check if the party has a candidate of the election
 		if (req.files.length > 0) {
 			const file = req.files[0];
 			const { path } = file;
@@ -147,24 +150,3 @@ export async function deleteCandidate(req, res) {
 		res.status(404).json({ error: 'Error While Deleting the User...!' });
 	}
 }
-
-export const countVote = async (req, res) => {
-	try {
-		const candidates = await Candidate.find({}, '_id partyName image');
-		const voteCounts = {};
-
-		for (const candidate of candidates) {
-			const candidateId = candidate._id;
-			const voteCount = await Voting.countDocuments({ candidateId });
-			voteCounts[candidateId] = {
-				voteCount,
-				partyName: candidate.partyName,
-				image: candidate.image,
-			};
-		}
-
-		return res.status(StatusCodes.OK).json(response({ data: voteCounts }));
-	} catch (error) {
-		console.log(console.error);
-	}
-};

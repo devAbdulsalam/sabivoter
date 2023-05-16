@@ -35,7 +35,7 @@ const Election = ({ election }) => {
 							Vote
 						</button>
 						<Link
-							href={`dashboard/${id}/votes`}
+							href={`/dashboard/${id}/votes`}
 							className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 						>
 							View Result
@@ -43,7 +43,7 @@ const Election = ({ election }) => {
 					</div>
 				) : (
 					<Link
-						href={`dashboard/${id}/votes`}
+						href={`/dashboard/${id}/votes`}
 						className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 					>
 						View Result

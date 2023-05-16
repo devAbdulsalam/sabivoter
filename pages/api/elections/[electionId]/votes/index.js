@@ -15,11 +15,11 @@ export default async function handler(req, res) {
 		const votes = await Election.find({ _id: electionId}, {votes: 1}).sort({
 			createdAt: -1,
 		});
-		if (votes && votes.length > 0) {
-			res.status(200).json(votes);
+		if (!votes) {
+			return res.status(404).json({ error: 'Votes not Found' });
 		}
-		return res.status(404).json({ error: 'Candidates not Found' });
+		res.status(200).json(votes);
 	} catch (error) {
-		res.status(404).json({ error: 'Error While Fetching candidates ..!!' });
+		res.status(404).json({ error: 'Error While Fetching votes ..!!' });
 	}
 }

@@ -4,14 +4,25 @@ import { uploads } from '@/utils/cloudinary';
 import fs from 'fs';
 import connectMDB from '@/database/connMDB';
 
-// get : http://localhost:3000/api/candidate
-export async function getParty(req, res) {
+// get : http://localhost:3000/api/political_parties
+export async function getParties(req, res) {
 	try {
 		const party = await Party.find({}).sort({
 			createdAt: -1,
 		});
 		if (!party) return res.status(404).json({ error: 'No Party Found' });
 		res.status(200).json(party);
+	} catch (error) {
+		res.status(404).json({ error: 'Error While Fetching Data' });
+	}
+}
+// get : http://localhost:3000/api/api/political_parties/party
+export async function getParty(req, res) {
+	const { party } = req.query;
+	try {
+		const pparty = await Party.find({ party });
+		if (!pparty) return res.status(404).json({ error: 'Party Not Found' });
+		res.status(200).json(pparty);
 	} catch (error) {
 		res.status(404).json({ error: 'Error While Fetching Data' });
 	}

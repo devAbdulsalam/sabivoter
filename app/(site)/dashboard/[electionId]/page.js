@@ -11,7 +11,7 @@ const page = async ({ params }) => {
 		{ name: 'Home', url: '/' },
 		{
 			name: `${election?.electionName?.substring(0, 100)} ...`,
-			url: `/elections/${election?.electionId}`,
+			url: `/elections/${params.electionId}`,
 		},
 	];
 	if (!election) return notFound();
@@ -47,13 +47,13 @@ const page = async ({ params }) => {
 						</div>
 						<div className="flex gap-4 space-x-2 mt-2">
 							<Link
-								href={`dashboard/${params.electionId}/candidates`}
+								href={`/dashboard/${params.electionId}/candidates`}
 								className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 							>
 								Candidate
 							</Link>
 							<Link
-								href={`dashboard/${params.electionId}/votes`}
+								href={`/dashboard/${params.electionId}/votes`}
 								className="btn btn-md bg-accent hover:bg-secondary-hover md:btn-lg transition-all"
 							>
 								View Election Result

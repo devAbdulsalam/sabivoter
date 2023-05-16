@@ -1,9 +1,9 @@
-'use client'
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+'use client';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 // import { getData } from "@/utils/AxiosApis";
-import Tbody from '../../../me/my_votes/Tbody';
-const page = async (params) => {	
+// import Tbody from '../../../me/my_votes/Tbody';
+const page = ({ params }) => {
 	const [votes, setVotes] = useState([]);
 	const [error, setError] = useState(false);
 	useEffect(() => {
@@ -11,14 +11,18 @@ const page = async (params) => {
 			.get(`/api/elections/${params.electionId}/votes`, {
 				credentials: 'include',
 			})
-			.then((res) => setVotes(() => res.data))
+			.then((res) => {
+				console.log(res.data[0].votes);
+				setVotes(() => res.data.votes);
+			})
 			.catch((error) => {
+				console.log(error);
 				setError(error?.response?.data?.error || error.message);
 			});
 	}, [params]);
 	useEffect(() => {
-		console.log(votes) 
-	}, [vote])
+		console.log(votes);
+	}, [votes]);
 	return (
 		<div className="items-center w-full px-4 py-8 mx-auto my-2 text-green-500 bg-white rounded-lg shadow-md sm:w-11/12">
 			<div className="container mx-auto">
@@ -38,9 +42,9 @@ const page = async (params) => {
 							stroke="currentColor"
 						>
 							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
 								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
 							/>
 						</svg>
@@ -81,9 +85,9 @@ const page = async (params) => {
 								stroke="currentColor"
 							>
 								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
 								/>
 							</svg>
@@ -104,7 +108,7 @@ const page = async (params) => {
 								<th className="px-4 py-3">Percentage</th>
 							</tr>
 						</thead>
-						<Tbody />
+						{/* <Tbody /> */}
 					</table>
 				</div>
 				<div className="flex flex-col items-center w-full px-4 py-4 text-sm text-gray-500 justify-center mx-auto">

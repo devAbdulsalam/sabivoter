@@ -83,6 +83,50 @@ const Sidebar = () => {
 									<span className="text-sm ml-2">New Election</span>
 								</Link>
 								<Link
+									href="/admin/newparty"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-1 hover:bg-blue-100 hover:text-blue-500"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="icon icon-tabler icon-tabler-compass"
+										width="18"
+										height="18"
+										viewBox="0 0 24 24"
+										strokeWidth="1.5"
+										stroke="currentColor"
+										fill="none"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<path stroke="none" d="M0 0h24v24H0z"></path>
+										<polyline points="8 16 10 10 16 8 14 14 8 16"></polyline>
+										<circle cx="12" cy="12" r="9"></circle>
+									</svg>
+									<span className="text-sm ml-2">New Party</span>
+								</Link>
+								<Link
+									href="/admin/newcandidate"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-1 hover:bg-blue-100 hover:text-blue-500"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="icon icon-tabler icon-tabler-compass"
+										width="18"
+										height="18"
+										viewBox="0 0 24 24"
+										strokeWidth="1.5"
+										stroke="currentColor"
+										fill="none"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<path stroke="none" d="M0 0h24v24H0z"></path>
+										<polyline points="8 16 10 10 16 8 14 14 8 16"></polyline>
+										<circle cx="12" cy="12" r="9"></circle>
+									</svg>
+									<span className="text-sm ml-2">New Candidate</span>
+								</Link>
+								<Link
 									href="admin/votes"
 									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
 								>

@@ -31,20 +31,19 @@ const page = ({ searchParams }) => {
 		console.log(data);
 		setIsLoading(true);
 		setIsError(null);
-		
-		const res = await signIn('credentials', {
-			email,
-			password,
-			redirect: true,
-			callbackUrl: '/',
-		});
-		 data = await res.json();
-		if (res?.ok) {
-			setSuccess(data.messsage || 'Login Successfull');
-			setIsLoading(false);
-		}
-
-		if (!res.ok) {
+		try {
+			const res = await signIn('credentials', {
+				email,
+				password,
+				redirect: false,
+				callbackUrl: '/dashboard',
+			});
+			//  data = await res.json();
+			if (res?.ok) {
+				setSuccess('Login Successfull');
+				setIsLoading(false);
+			}
+		} catch (error) {
 			console.log(error?.msg);
 			console.log(error);
 			// setIsError(error?.msg || "Error Logging in")

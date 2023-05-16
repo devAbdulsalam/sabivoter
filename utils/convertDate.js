@@ -1,4 +1,3 @@
-const response = require('../response/response');
 
 export const convertedDatetoString = (date) => {
 	const dateObj = new Date(date);
@@ -11,16 +10,16 @@ export const convertedDatetoString = (date) => {
 };
 
 export const checkExpired = (input) => {
-	let msg = '';
+	let status = '';
 	const newDate = new Date(input);
 	const today = new Date();
 
 	if (today > newDate) {
-		msg = 'Expired';
+		status = 'Expired';
 	} else {
-		msg = 'Running';
+		status = 'Running';
 	}
 
-	return response({ msg: msg });
+	return  status;
 };
 

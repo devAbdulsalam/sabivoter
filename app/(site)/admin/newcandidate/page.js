@@ -38,7 +38,6 @@ const newcandidate = ({ params }) => {
 			.then((res) => res.data)
 			.then((data) => {
 				setParties(data);
-				console.log(party);
 			})
 			.catch((error) => {
 				console.log(error.message);
@@ -81,7 +80,6 @@ const newcandidate = ({ params }) => {
 					'Content-Type': 'multipart/form-data',
 				},
 			});
-			console.log(data);
 			setIsLoading(false);
 			setIsError(null);
 			setSuccess('Candidate added successfully');

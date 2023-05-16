@@ -1,7 +1,10 @@
 import connectMDB from '@/database/connMDB';
-import { getParties, postParty } from '@/database/controller/party';
+import {
+	getParty,
+	// postCandidate,
+} from '@/database/controller/party';
+
 export default async function handler(req, res) {
-	// connectMDB
 	connectMDB().catch(() =>
 		res.status(405).json({ error: 'Error in the Connection' })
 	);
@@ -11,15 +14,9 @@ export default async function handler(req, res) {
 
 	switch (method) {
 		case 'GET':
-			getParties(req, res);
+			getParty(req, res);
 			break;
 		case 'POST':
-			postParty(req, res);
-			break;
-		case 'PUT':
-			res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
-			break;
-		case 'DELETE':
 			res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
 			break;
 		default:

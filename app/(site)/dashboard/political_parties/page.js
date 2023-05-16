@@ -1,5 +1,6 @@
 import { getData } from '@/utils/AxiosApis';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Hero from '@/public/assets/avatar.png';
 const election = async () => {
@@ -15,8 +16,9 @@ const election = async () => {
 			<div className="w-full mx-auto h-full py-4 px-4 sm:py-7">
 				<div className="grid lg:grid-cols-4 gap-8">
 					{data?.map((item) => (
-						<div
+						<Link
 							key={item._id}
+							href={`/${item.party}`}
 							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
 						>
 							<div className="flex justify-center p-2">
@@ -28,7 +30,7 @@ const election = async () => {
 							<p class="">
 								Motto: <span>{item.motto}</span>
 							</p>
-						</div>
+						</Link>
 					))}
 				</div>
 			</div>
