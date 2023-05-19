@@ -1,7 +1,7 @@
 'use client';
 import axios from 'axios';
 import React, { useState } from 'react';
-import Toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 // Cookie: cookie_for_data,
@@ -22,23 +22,24 @@ const page = () => {
 		setIsLoading(true);
 		if (data) {
 			axios
-				.post('http://localhost:3000/api/elections', data, {
+				.post('/api/elections', data, {
 					withCredentials: true,
 				})
 				.then((res) => res.data)
 				.then((data) => {
 					setSuccess(data.msg);
+					toast.success(data.msg);
 					setIsLoading(false);
 					setTimeout(() => {
 						setSuccess(null);
 						setElectionName('');
 						setBeginAt('');
 						setEndAt('');
-						router.push(`/admin/newelection/${data?.election?._id}`);
-					}, 2000);
+						router.push(`/admin/newelection/${electionName}`);
+					}, 1000);
 				})
 				.catch((error) => {
-					console.log(
+					toast.error(
 						error.response?.data?.error || error?.message || 'Network error'
 					);
 					setIsError(
@@ -47,7 +48,7 @@ const page = () => {
 					setIsLoading(false);
 					setTimeout(() => {
 						setIsError(null);
-					}, 1000);
+					}, 3000);
 				});
 		} else {
 			setIsError('All inputs are required');
@@ -56,6 +57,7 @@ const page = () => {
 	};
 	return (
 		<div className="text-2xl flex flex-col justify-center items-center h-[100%] bg-white w-full p-20 mt-10">
+			<Toaster />
 			<div>
 				<h1 className="text-center text-xl md:text-2xl font-bold py-3 text-green-500">
 					Create New Election

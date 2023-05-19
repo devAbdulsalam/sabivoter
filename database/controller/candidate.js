@@ -1,7 +1,5 @@
 /** Candidate Controller */
 import Candidate from '../model/candidate';
-import Party from '../model/party';
-import Election from '../model/election';
 import { uploads } from '@/utils/cloudinary';
 import fs from 'fs';
 import connectMDB from '@/database/connMDB';
@@ -52,6 +50,12 @@ export async function addCandidate(req, res) {
 			return res.status(404).json({ error: 'Candidate already Exist...!' });
 		}
 		// check if the party has a candidate of the election
+		const candidateParty = await Candidate.findOne({ party });
+		if (candidateParty) {
+			return res
+				.status(404)
+				.json({ error: 'Party already have candidate...!' });
+		}
 		if (req.files.length > 0) {
 			const file = req.files[0];
 			const { path } = file;
@@ -126,11 +130,11 @@ export async function putCandidate(req, res) {
 			const updated = await candidate.save();
 			res
 				.status(200)
-				.json({ updated, message: 'candidate updated successfully' });
+				.json({ updated, message: 'Candidate updated successfully' });
 		}
 		res.status(404).json({ error: 'User Not Selected...!' });
 	} catch (error) {
-		res.status(404).json({ error: 'Error While Updating the Data...!' });
+		res.status(404).json({ error: 'Error While Updating candidate...!' });
 	}
 }
 
@@ -142,11 +146,11 @@ export async function deleteCandidate(req, res) {
 			const candidate = await Candidate.findByIdAndDelete(candidateId);
 			return res
 				.status(200)
-				.json({ candidate, message: 'candidate deleted successfully' });
+				.json({ candidate, message: 'Candidate deleted successfully' });
 		}
 
-		res.status(404).json({ error: 'User Not Selected...!' });
+		res.status(404).json({ error: 'Candidate Not Selected...!' });
 	} catch (error) {
-		res.status(404).json({ error: 'Error While Deleting the User...!' });
+		res.status(404).json({ error: 'Error While Deleting Candidate...!' });
 	}
 }

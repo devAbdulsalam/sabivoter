@@ -14,13 +14,13 @@ export async function getGeneralInfo(req, res) {
 		const users = await User.find({}).sort({
 			createdAt: -1,
 		});
-		const elections = await Election.find({}).sort({
+		const elections = await Election.find({}, { votes: 0 }).sort({
 			createdAt: -1,
 		});
 		const parties = await Party.find({}).sort({
 			createdAt: -1,
 		});
-		const candidates = await Candidate.find({}).sort({
+		const candidates = await Candidate.find({}, { votes: 0 }).sort({
 			createdAt: -1,
 		});
 		if (!elections) {

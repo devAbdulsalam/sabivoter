@@ -1,34 +1,63 @@
-// import { headers } from 'next/headers';
-// import { cookies } from "next/headers";
-
-// async function getUsers() {
-//   const headersInstance = headers()
-//   const authorization = headersInstance.get('authorization')
-//   // Forward the authorization header
-//   const res = await fetch("https://vote-me.cyclic.app//api/v1/all", {
-// 		headers: { authorization },
-// 	});
-//   return res.json()
-// }
-import Link from "next/link";
-// import { useEffect } from "react";
-// import Router from "next/router";
-// import { useSession } from "next-auth/react";
-// import { cookies } from "next/headers";
+import { getData } from '@/utils/AxiosApis';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Hero from '@/public/assets/avatar.png';
 const page = async () => {
-	
-	// const theme = cookieStore.get("theme");
+	let data = await getData('generalInfo');
+	if (!data) return notFound();
 	return (
-		<>
-			<div className="py-10 text-blue-500">
-				<h2 className="text-2xl text-center">Admin Dashboard page</h2>
+		<div className="bg-primary w-full h-full">
+			<section className="py-4 sm:py-7 bg-blue-100">
+				<div className="container max-w-screen-xl mx-auto px-4">
+					<h1 className="text-bold text-2xl">Admin Dashboard</h1>
+				</div>
+			</section>
+			<div className="w-full mx-auto h-full py-4 px-4 sm:py-7">
+				<div>
+					<div className="grid lg:grid-cols-4 gap-8">
+						<Link
+							href={`/dashboard/elections`}
+							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
+						>
+							<div className="flex justify-center p-2">
+								<Image src={Hero} width={60} height={60} />
+							</div>
+							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
+								{data.elections.length} + Elections
+							</h2>
+						</Link>
+						<Link
+							href={`/dashboard/political_parties`}
+							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
+						>
+							<div className="flex justify-center p-2">
+								<Image src={Hero} width={60} height={60} />
+							</div>
+							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
+								{data.parties.length} + political parties
+							</h2>
+						</Link>
+						<Link className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
+							<div className="flex justify-center p-2">
+								<Image src={Hero} width={60} height={60} />
+							</div>
+							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
+								{data.candidates.length} + Candidates
+							</h2>
+						</Link>
+						<Link className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
+							<div className="flex justify-center p-2">
+								<Image src={Hero} width={60} height={60} />
+							</div>
+							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
+								{data.users.length} + Voters
+							</h2>
+						</Link>
+					</div>
+				</div>
 			</div>
-			<p>About page</p>
-			<p>i am about page</p>
-			<div className="text-green-500 text-center">
-				<Link href="/">Home</Link>
-			</div>
-		</>
+		</div>
 	);
 };
 

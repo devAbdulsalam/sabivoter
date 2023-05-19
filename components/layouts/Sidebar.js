@@ -61,6 +61,52 @@ const Sidebar = () => {
 						{session?.user && session?.user?.role === 'admin' ? (
 							<>
 								<Link
+									href="/admin/election"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="icon icon-tabler icon-tabler-puzzle"
+										width="18"
+										height="18"
+										viewBox="0 0 24 24"
+										strokeWidth="1.5"
+										stroke="currentColor"
+										fill="none"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<path stroke="none" d="M0 0h24v24H0z"></path>
+										<path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+									</svg>
+									<span className="text-sm ml-2">Elections</span>
+								</Link>
+
+								<Link
+									href="/admin/users"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="icon icon-tabler icon-tabler-compass"
+										width="18"
+										height="18"
+										viewBox="0 0 24 24"
+										strokeWidth="1.5"
+										stroke="currentColor"
+										fill="none"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<path stroke="none" d="M0 0h24v24H0z"></path>
+										<polyline points="8 16 10 10 16 8 14 14 8 16"></polyline>
+										<circle cx="12" cy="12" r="9"></circle>
+									</svg>
+									<span className="text-sm ml-2">
+										All Users <span className="text-red-500">(Admin)</span>
+									</span>
+								</Link>
+								<Link
 									href="/admin/newelection"
 									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-1 hover:bg-blue-100 hover:text-blue-500"
 								>
@@ -80,29 +126,9 @@ const Sidebar = () => {
 										<polyline points="8 16 10 10 16 8 14 14 8 16"></polyline>
 										<circle cx="12" cy="12" r="9"></circle>
 									</svg>
-									<span className="text-sm ml-2">New Election</span>
-								</Link>
-								<Link
-									href="/admin/newparty"
-									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-1 hover:bg-blue-100 hover:text-blue-500"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="icon icon-tabler icon-tabler-compass"
-										width="18"
-										height="18"
-										viewBox="0 0 24 24"
-										strokeWidth="1.5"
-										stroke="currentColor"
-										fill="none"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									>
-										<path stroke="none" d="M0 0h24v24H0z"></path>
-										<polyline points="8 16 10 10 16 8 14 14 8 16"></polyline>
-										<circle cx="12" cy="12" r="9"></circle>
-									</svg>
-									<span className="text-sm ml-2">New Party</span>
+									<span className="text-sm ml-2">
+										New Election <span className="text-red-500">(Admin)</span>
+									</span>
 								</Link>
 								<Link
 									href="/admin/newcandidate"
@@ -127,12 +153,12 @@ const Sidebar = () => {
 									<span className="text-sm ml-2">New Candidate</span>
 								</Link>
 								<Link
-									href="admin/votes"
-									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
+									href="/admin/newparty"
+									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-1 hover:bg-blue-100 hover:text-blue-500"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										className="icon icon-tabler icon-tabler-puzzle"
+										className="icon icon-tabler icon-tabler-compass"
 										width="18"
 										height="18"
 										viewBox="0 0 24 24"
@@ -143,40 +169,12 @@ const Sidebar = () => {
 										strokeLinejoin="round"
 									>
 										<path stroke="none" d="M0 0h24v24H0z"></path>
-										<path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+										<polyline points="8 16 10 10 16 8 14 14 8 16"></polyline>
+										<circle cx="12" cy="12" r="9"></circle>
 									</svg>
-									<span className="text-sm ml-2">Count Vote</span>
-								</Link>
-								<Link
-									href="myvote"
-									className="flex items-center focus:outline-none focus:ring-2 focus:ring-white py-2 px-1 mb-2 hover:bg-blue-100 hover:text-blue-500"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="icon icon-tabler icon-tabler-stack"
-										width="18"
-										height="18"
-										viewBox="0 0 24 24"
-										strokeWidth="1.5"
-										stroke="currentColor"
-										fill="none"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									>
-										<path stroke="none" d="M0 0h24v24H0z" />
-										<polyline points="12 4 4 8 12 12 20 8 12 4" />
-										<polyline points="4 12 12 16 20 12" />
-										<polyline points="4 16 12 20 20 16" />
-									</svg>
-									<p className="text-sm ml-2">
-										My Votes <span className="text-red-500">(Admin)</span>
-									</p>
-								</Link>
-								<Link
-									href="/admin/votes"
-									className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-								>
-									All Votes <span className="text-red-500">(Admin)</span>
+									<span className="text-sm ml-2">
+										New Party <span className="text-red-500">(Admin)</span>
+									</span>
 								</Link>
 								<hr />
 							</>
@@ -186,21 +184,21 @@ const Sidebar = () => {
 						<>
 							<Link
 								href="/me"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
+								className="block text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
 							>
 								Your Profile
 							</Link>
 
 							<Link
 								href="/me/my_votes"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
+								className="block text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
 							>
 								Votes
 							</Link>
 
 							<Link
 								href="/me/update"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
+								className="block text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
 							>
 								Update Profile
 							</Link>

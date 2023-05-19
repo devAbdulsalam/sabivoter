@@ -69,8 +69,8 @@ export async function signInUser(req, res) {
 					.status(404)
 					.json({ error: "Email already in use my another account !!" });
 			}
-			const salt = await bcryptjs.genSaltSync(10);
-			const hash = await bcryptjs.hashSync(password, salt);
+			const salt =  bcryptjs.genSaltSync(10);
+			const hash =  bcryptjs.hashSync(password, salt);
 			const user = await Users.create({
 				name,
 				phone,

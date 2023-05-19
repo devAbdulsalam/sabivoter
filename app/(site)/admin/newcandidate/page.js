@@ -5,7 +5,7 @@ import Image from 'next/image';
 import toast, { Toaster } from 'react-hot-toast';
 // import { getData } from "../../../../utils/AxiosApis";
 
-const newcandidate = ({ params }) => {
+const newcandidate = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setIsError] = useState(null);
 	const [success, setSuccess] = useState(null);
@@ -19,10 +19,9 @@ const newcandidate = ({ params }) => {
 	const [party, setParty] = useState('');
 	const [parties, setParties] = useState([]);
 	const [profile, setProfile] = useState('');
-	// const [option, setOptions] = useState([]);
 	useEffect(() => {
 		axios
-			.get('http://localhost:3000/api/elections')
+			.get('/api/elections')
 			.then((res) => res.data)
 			.then((data) => {
 				setElections(data);
@@ -31,10 +30,10 @@ const newcandidate = ({ params }) => {
 				console.log(error.message);
 				console.log(error?.response?.data?.error);
 			});
-	}, [params]);
+	}, []);
 	useEffect(() => {
 		axios
-			.get('http://localhost:3000/api/political_parties')
+			.get('/api/political_parties')
 			.then((res) => res.data)
 			.then((data) => {
 				setParties(data);
@@ -43,12 +42,7 @@ const newcandidate = ({ params }) => {
 				console.log(error.message);
 				console.log(error?.response?.data?.error);
 			});
-	}, [params]);
-	// useEffect(() => {
-	// 	const option = elections.filter((item) => item._id === params.electionId);
-	// 	setOptions(option);
-	// 	console.log(option)
-	// }, [elections]);
+	}, []);
 
 	const handleElectionChange = (e) => {
 		setElection(e.target.value);
@@ -61,6 +55,7 @@ const newcandidate = ({ params }) => {
 		setIsLoading(true);
 		try {
 			if (!selectedFile || name === '' || election === '' || party === '') {
+				// console.log(party, name, election);
 				setIsError('All fields are required');
 				toast.error('All fields are required!');
 				setIsLoading(false);
@@ -80,8 +75,10 @@ const newcandidate = ({ params }) => {
 					'Content-Type': 'multipart/form-data',
 				},
 			});
+			console.log(data.msg);
 			setIsLoading(false);
 			setIsError(null);
+			toast.success('Candidate added successfully');
 			setSuccess('Candidate added successfully');
 			setTimeout(() => {
 				setSuccess(null);
@@ -176,7 +173,7 @@ const newcandidate = ({ params }) => {
 							<select
 								onChange={handleElectionChange}
 								value={election}
-								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+								className="px-3 my-1 py-1.5 text-base capitalize w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 							>
 								<option>--Select Election---</option>
 								{elections?.map((item, idx) => {
@@ -195,7 +192,7 @@ const newcandidate = ({ params }) => {
 							<select
 								onChange={handlePartyChange}
 								value={party}
-								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+								className="px-3 my-1 py-1.5 text-base capitalize w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 							>
 								<option>-- Select Political Party ---</option>
 								{parties?.map((item, idx) => {

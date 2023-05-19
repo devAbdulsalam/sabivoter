@@ -15,30 +15,32 @@ const newcandidate = ({ params }) => {
 	// //textFeilds
 	const [name, setName] = useState('');
 	const [election, setElection] = useState('');
-	const [elections, setElections] = useState([]);
 	const [party, setParty] = useState('');
 	const [profile, setProfile] = useState('');
-	// const [option, setOptions] = useState([]);
+	const [parties, setParties] = useState([]);
+	useEffect(() => {
+		setElection(params.election);
+	}, [params]);
+
 	useEffect(() => {
 		axios
-			.get('http://localhost:3000/api/elections')
+			.get('/api/political_parties')
 			.then((res) => res.data)
 			.then((data) => {
-				setElections(data);
+				setParties(data);
 			})
 			.catch((error) => {
 				console.log(error.message);
 				console.log(error?.response?.data?.error);
 			});
 	}, [params]);
-	// useEffect(() => {
-	// 	const option = elections.filter((item) => item._id === params.electionId);
-	// 	setOptions(option);
-	// 	console.log(option)
-	// }, [elections]);
 
-	const handleOptionChange = (e) => {
+	const handleElectionChange = (e) => {
 		setElection(e.target.value);
+	};
+
+	const handlePartyChange = (e) => {
+		setParty(e.target.value);
 	};
 
 	const handleUpload = async (e) => {
@@ -159,33 +161,33 @@ const newcandidate = ({ params }) => {
 								Election Name:
 							</label>
 							<select
-								onChange={handleOptionChange}
+								onChange={handleElectionChange}
 								value={election}
-								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+								className="px-3 my-1 py-1.5 text-base capitalize w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
 							>
-								{elections?.map((item, idx) => {
+								<option value={election} selected class="capitalize">
+									{election}
+								</option>
+							</select>
+						</div>
+						<div className="my-1">
+							<label htmlFor="party" className="text-lg font-semibold">
+								Party Name:
+							</label>
+							<select
+								onChange={handlePartyChange}
+								value={party}
+								className="px-3 my-1 py-1.5 text-base capitalize w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+							>
+								<option>-- Select Political Party ---</option>
+								{parties?.map((item, idx) => {
 									return (
-										<option key={idx} value={item._id}>
-											{item.electionName}
+										<option key={idx} value={item._id} class="capitalize">
+											{item.party}
 										</option>
 									);
 								})}
 							</select>
-						</div>
-						<div className="mt-1">
-							<label htmlFor="party" className="text-lg font-semibold">
-								Party Name:
-							</label>
-							<input
-								onChange={(e) => setParty(e.target.value)}
-								className="px-3 my-1 py-1.5 text-base w-full font-normal text-gray-500 bg-clip-padding border-2 border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-								type="text"
-								value={party}
-								placeholder="Nigeria People's Party"
-								id="party"
-								name="party"
-								autoComplete="text"
-							></input>
 						</div>
 					</div>
 				</div>

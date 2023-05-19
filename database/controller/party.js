@@ -88,3 +88,23 @@ export async function postParty(req, res) {
 		res.status(404).json({ error: 'Error While Creating Party' });
 	}
 }
+
+export async function putParty(req, res) {
+	const { party, info, motto } = req.body;
+	try {
+		if (!party) {
+			return res.status(404).json({ error: 'All fields are Required!' });
+		}
+		const parties = await Party.create({
+			party,
+			info,
+			motto,
+		});
+		if (!party) {
+			res.status(404).json({ error: 'Error Creating party' });
+		}
+		res.status(200).json({ parties, msg: 'Party created successfully' });
+	} catch (error) {
+		res.status(404).json({ error: 'Error While Creating Party' });
+	}
+}

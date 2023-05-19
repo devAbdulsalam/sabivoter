@@ -36,49 +36,21 @@ export async function getVote(req, res) {
 	}
 }
 
-// post : http://localhost:3000/api/vote
-// export async function vote(req, res) {
-// 	const { voter, election, candidate } = req.body;
-// 	try {
-// 		if (!voter || !election || !candidate) {
-// 			return res.status(404).json({ error: 'invalid Vote credentials' });
-// 		}
-
-// 		const candidateExist = await Candidate.find({ _id: candidate });
-// 		const electionExist = await Election.find({ _id: election });
-// 		const userExist = await User.find({ _id: voter });
-
-// 		if (!candidateExist || !electionExist || !userExist) {
-// 			return res.status(404).json({ error: 'Invalid vote credentials !!' });
-// 		}
-// 		const vote = await Election.findOneAndUpdate(
-// 			{ _id: election },
-// 			{ $push: { votes: { voter, candidate } } },
-// 			{ new: true }
-// 		);
-// 		if (!vote) {
-// 			res.status(404).json({ error: 'Error Occur While Voting!' });
-// 		}
-// 		res.status(200).json({ vote, message: 'Voted successfully' });
-// 	} catch (error) {
-// 		res.status(404).json({ error: 'Error Occur While Voting!!' });
-// 	}
-// }
 export async function vote(req, res) {
-	const { voter, election, candidate } = req.body;
+	const { voter, election, electionId, candidate } = req.body;
 	try {
 		if (!voter || !election || !candidate) {
-			return res.status(404).json({ error: 'Invalid vote credentials' });
+			return res.status(404).json({ error: 'Invalid vote credentials !' });
 		}
 
 		const [candidateExist, electionExist, userExist] = await Promise.all([
 			Candidate.findById(candidate),
-			Election.findById(election),
+			Election.findById(electionId),
 			User.findById(voter),
 		]);
 
 		if (!candidateExist || !electionExist || !userExist) {
-			return res.status(404).json({ error: 'Invalid vote credentials' });
+			return res.status(404).json({ error: 'Invalid vote credentials !!' });
 		}
 
 		const hasVoted = await Election.exists({
@@ -87,7 +59,7 @@ export async function vote(req, res) {
 		});
 		const hasVote = await User.exists({
 			_id: voter,
-			'eligible.electionId': election,
+			'eligible.electionId': electionId,
 		});
 
 		if (hasVoted || hasVote) {
@@ -98,7 +70,7 @@ export async function vote(req, res) {
 
 		const vote = await Election.findByIdAndUpdate(
 			election,
-			{ $push: { votes: { voter, candidate } } },
+			{ $push: { votes: voter } },
 			{ new: true }
 		);
 		const voted = await User.findByIdAndUpdate(
@@ -109,14 +81,25 @@ export async function vote(req, res) {
 						election: electionExist.electionName,
 						electionId: election,
 						voted: true,
-						candidate,
+					},
+				},
+			},
+			{ new: true }
+		);
+		const canVote = await Candidate.findByIdAndUpdate(
+			{ _id: candidate },
+			{
+				$push: {
+					votes: {
+						voter,
+						date: Date.now().toString(),
 					},
 				},
 			},
 			{ new: true }
 		);
 
-		if (!vote || !voted) {
+		if (!vote || !voted || canVote) {
 			return res.status(404).json({ error: 'Error occurred while voting' });
 		}
 
@@ -145,8 +128,9 @@ export async function deleteVote(req, res) {
 }
 
 export const countVote = async (req, res) => {
+		const {election} = req.body	
 	try {
-		const candidates = await Candidate.find({}, '_id partyName image');
+		const candidates = await Candidate.find({ election }, { _id, party, votes });
 		const voteCounts = {};
 
 		for (const candidate of candidates) {
@@ -164,3 +148,4 @@ export const countVote = async (req, res) => {
 		console.log(console.error);
 	}
 };
+``

@@ -30,7 +30,8 @@ export default async function handler(req, res) {
 			return;
 		}
 
-		const match = bcryptjs.compareSync(password, user.password);
+		// const match = bcryptjs.compareSync(password, user.password);
+		const match = password === user.password;
 		if (!match) {
 			res.status(404).json({ error: 'userName or Password is Incorrect!!!' });
 			return;

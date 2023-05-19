@@ -9,6 +9,12 @@ const candidateSchema = new Schema({
 		public_id: String,
 		url: String,
 	},
+	votes: [
+		{
+			voter: String,
+			date: { type: Date, default: Date.now().toString() },
+		},
+	],
 });
 
 const Candidate = models.candidate || model('candidate', candidateSchema);

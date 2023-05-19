@@ -36,9 +36,14 @@ const userSchema = new Schema(
 					type: Boolean,
 					default: false,
 				},
-				election: String,
-				electionId: String,
-				candidate: String,
+				election: {
+					type: String,
+					required: [true, 'Election name is required'],
+				},
+				electionId: {
+					type: String,
+					required: [true, 'Election ID is required'],
+				},
 				date: { type: Date, default: Date.now().toString() },
 			},
 		],
