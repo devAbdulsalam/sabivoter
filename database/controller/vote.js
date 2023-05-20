@@ -1,8 +1,27 @@
 import Election from '../model/election';
 import Candidate from '../model/candidate';
 import User from '../model/user';
+import mongoose from 'mongoose';
 // import connectMDB from '@/database/connMDB';
 /** Vote Controller */
+
+
+// get : http://localhost:3000/api/allvotes
+export async function getALLVotes(req, res) {
+	try {
+		const Votes = await Election.find({}, { electionName : 1, votes: 1 }).sort({
+			createdAt: -1,
+		});
+		if (!Votes) {
+			res.status(404).json({ error: 'Votes not Available' });
+			return;
+		}
+		res.status(200).json(Votes);
+	} catch (error) {
+		res.status(404).json({ error: 'Error While Fetching Votes..!' });
+	}
+}
+
 
 // get : http://localhost:3000/api/Votes
 export async function getVotes(req, res) {
@@ -21,6 +40,8 @@ export async function getVotes(req, res) {
 	}
 }
 
+
+
 // get : http://localhost:3000/api/Votes/1
 export async function getVote(req, res) {
 	try {
@@ -35,12 +56,12 @@ export async function getVote(req, res) {
 		res.status(404).json({ error: 'Cannot get the Vote...!' });
 	}
 }
-
 export async function vote(req, res) {
-	const { voter, election, electionId, candidate } = req.body;
 	try {
-		if (!voter || !election || !candidate) {
-			return res.status(404).json({ error: 'Invalid vote credentials !' });
+		const { voter, electionId, candidate } = req.body;
+
+		if (!voter || !electionId || !candidate) {
+			return res.status(400).json({ error: 'Invalid vote credentials!' });
 		}
 
 		const [candidateExist, electionExist, userExist] = await Promise.all([
@@ -50,48 +71,60 @@ export async function vote(req, res) {
 		]);
 
 		if (!candidateExist || !electionExist || !userExist) {
-			return res.status(404).json({ error: 'Invalid vote credentials !!' });
+			return res.status(404).json({ error: 'Invalid vote credentials!' });
 		}
 
-		const hasVoted = await Election.exists({
-			_id: election,
+		const hasVote = await Election.exists({
+			_id: electionId,
 			'votes.voter': voter,
 		});
-		const hasVote = await User.exists({
+		const hasVoted = await User.exists({
 			_id: voter,
 			'eligible.electionId': electionId,
 		});
 
-		if (hasVoted || hasVote) {
+		if (hasVote) {
+			return res
+				.status(409)
+				.json({ error: 'User has already voted in this election' });
+		}
+		if (hasVoted) {
 			return res
 				.status(409)
 				.json({ error: 'User has already voted in this election' });
 		}
 
-		const vote = await Election.findByIdAndUpdate(
-			election,
-			{ $push: { votes: voter } },
+		const updatedElection = await Election.findByIdAndUpdate(
+			{ _id : electionId },
+			{ $push: { votes: {voter} } },
 			{ new: true }
 		);
-		const voted = await User.findByIdAndUpdate(
+		if (
+			!mongoose.isValidObjectId(candidate) ||
+			!mongoose.isValidObjectId(electionId) ||
+			!mongoose.isValidObjectId(voter)
+		) {
+			return res.status(400).json({ error: 'Invalid vote credentials!' });
+		}
+		const updatedUser = await User.findByIdAndUpdate(
 			{ _id: voter },
 			{
 				$push: {
 					eligible: {
 						election: electionExist.electionName,
-						electionId: election,
+						electionId: mongoose.isValidObjectId(electionId),
 						voted: true,
 					},
 				},
 			},
 			{ new: true }
 		);
-		const canVote = await Candidate.findByIdAndUpdate(
+		const updatedCandidate = await Candidate.findByIdAndUpdate(
 			{ _id: candidate },
 			{
 				$push: {
 					votes: {
-						voter,
+						voter: mongoose.isValidObjectId(voter),
 						date: Date.now().toString(),
 					},
 				},
@@ -99,17 +132,19 @@ export async function vote(req, res) {
 			{ new: true }
 		);
 
-		if (!vote || !voted || canVote) {
-			return res.status(404).json({ error: 'Error occurred while voting' });
+		if (!updatedElection || !updatedUser || !updatedCandidate) {
+			return res.status(500).json({ error: 'Error occurred while voting !' });
 		}
 
-		return res.status(200).json({ vote, voted, message: 'Voted successfully' });
+		return res
+			.status(200)
+			.json({ updatedElection, updatedUser, message: 'Voted successfully' });
 	} catch (error) {
-		return res.status(500).json({ error: 'Error occurred while voting' });
+		console.error(error);
+		return res.status(500).json({ error: 'Error occurred while voting !!' });
 	}
 }
 
-// delete : http://localhost:3000/api/Votes/1
 export async function deleteVote(req, res) {
 	try {
 		const { Voter } = req.query;
@@ -128,9 +163,12 @@ export async function deleteVote(req, res) {
 }
 
 export const countVote = async (req, res) => {
-		const {election} = req.body	
+	const { election } = req.body;
 	try {
-		const candidates = await Candidate.find({ election }, { _id, party, votes });
+		const candidates = await Candidate.find(
+			{ election },
+			{ _id, party, votes }
+		);
 		const voteCounts = {};
 
 		for (const candidate of candidates) {
@@ -148,4 +186,4 @@ export const countVote = async (req, res) => {
 		console.log(console.error);
 	}
 };
-``
+``;

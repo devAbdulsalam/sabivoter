@@ -24,11 +24,11 @@ const VoteContextProvider = ({ children }) => {
 		}
 		const data = {
 			voter: session?.user?._id,
-			election,
+			electionId: election,
 			candidate: candidate._id,
 		};
 		setLoading(true);
-		console.log(session?.user?._id);
+		console.log(data);
 		axios
 			.post(`/api/votes`, data)
 			.then((res) => {
@@ -38,7 +38,7 @@ const VoteContextProvider = ({ children }) => {
 			})
 			.catch((error) => {
 				setLoading(false);
-				console.log(error?.response?.data?.error);
+				console.log(error?.response?.data?.error || error.message || error);
 				toast.error(error?.response?.data?.error || error.message);
 			});
 	};

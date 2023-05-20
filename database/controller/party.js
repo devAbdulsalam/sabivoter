@@ -19,12 +19,21 @@ export async function getParties(req, res) {
 // get : http://localhost:3000/api/api/political_parties/party
 export async function getParty(req, res) {
 	const { party } = req.query;
+	function removeUnderScore(inputString) {
+		var reversedString = inputString.replace(/_/g, ' ');
+		return reversedString;
+	}
+
 	try {
-		const pparty = await Party.find({ party });
+		if (!party) {
+			return res.status(404).json({ error: 'Party must be provided...!' });
+		}
+
+		const pparty = await Party.find({ party: removeUnderScore(party) });
 		if (!pparty) return res.status(404).json({ error: 'Party Not Found' });
 		res.status(200).json(pparty);
 	} catch (error) {
-		res.status(404).json({ error: 'Error While Fetching Data' });
+		res.status(404).json({ error: 'Error Fetching Party' });
 	}
 }
 

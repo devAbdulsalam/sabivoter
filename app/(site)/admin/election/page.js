@@ -11,7 +11,7 @@ const election = () => {
 
 	useEffect(() => {
 		setLoading(true);
-		fetch("https://vote-me.cyclic.app/api/v1/allElection")
+		fetch("/api/elections")
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data);

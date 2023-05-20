@@ -28,7 +28,7 @@ const page = async () => {
 							</h2>
 						</Link>
 						<Link
-							href={`/dashboard/political_parties`}
+							href={`/admin/parties`}
 							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
 						>
 							<div className="flex justify-center p-2">
@@ -38,15 +38,18 @@ const page = async () => {
 								{data.parties.length} + political parties
 							</h2>
 						</Link>
-						<Link className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
+						<div className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
 							<div className="flex justify-center p-2">
 								<Image src={Hero} width={60} height={60} />
 							</div>
 							<h2 className="text-xl font-semibold capitalize text-center text-green-600 py-4">
 								{data.candidates.length} + Candidates
 							</h2>
-						</Link>
-						<Link className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1">
+						</div>
+						<Link
+							href={`/admin/users`}
+							className="py-4 px-2 text-lg w-full bg-gray-100 shadow-md rounded-md p-1"
+						>
 							<div className="flex justify-center p-2">
 								<Image src={Hero} width={60} height={60} />
 							</div>

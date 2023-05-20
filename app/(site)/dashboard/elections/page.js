@@ -1,6 +1,6 @@
 import { getData } from '@/utils/AxiosApis';
 // import Election cards
-import Election from './../election';
+import Election from './election';
 import { notFound } from 'next/navigation';
 const election = async () => {
 	let data = await getData('elections');

@@ -5,7 +5,7 @@ import { HiFingerPrint, HiThumbUp } from 'react-icons/hi';
 import { useModalContext } from '@/context/ModalContext';
 
 const VoteBtn = ({ election, candidate }) => {
-	const { votes, setElection, setCandidate} = useVoteContext();
+	const { votes, setElection, setCandidate } = useVoteContext();
 	const { setShowModal } = useModalContext();
 	const [hasVoted, setHasVoted] = useState(null);
 	useEffect(() => {
@@ -34,8 +34,8 @@ const VoteBtn = ({ election, candidate }) => {
 					onClick={handleVote}
 					className="btn md:btn-md bg-green-500 hover:bg-green-400 md:btn-lg transition-all"
 				>
-						<HiFingerPrint className="w-6 h-6 mr-1" />
-						Vote
+					<HiFingerPrint className="w-6 h-6 mr-1" />
+					Vote
 				</button>
 			)}
 		</>

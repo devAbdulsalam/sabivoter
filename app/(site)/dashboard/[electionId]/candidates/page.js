@@ -48,12 +48,9 @@ const Candidate = ({ params }) => {
 	}, [controls, inView]);
 	if (error) {
 		return (
-			<div className="flex flex-col items-center text-center">
-				<h2 className="text-2xl my-2 text-green-500 font-semibold">
-					The Candidates
-				</h2>
-				<p className="py-5 text-center text-red-500 text-xl">{error}</p>
-				<p className="subtitle text-red-500">
+			<div className="flex flex-col place-content-center text-center  h-full">
+				<p className="py-5 text-red-500 text-2xl font-semibold">{error}</p>
+				<p className="text-xl text-red-500">
 					Pleace check you network connection or reload page
 				</p>
 			</div>
