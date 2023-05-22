@@ -8,7 +8,7 @@ import { MenuAlt3Icon } from '@heroicons/react/outline';
 import { navigation } from '@/utils/Data';
 
 // import components
-import Socials from '../../Socials';
+import Socials from './Socials';
 
 // import framer
 import { motion } from 'framer-motion';
