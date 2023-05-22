@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import hero from '@/public/assets/avatar.png';
-import Votes from '@/components/user/Votes';
+import Votes from './Votes';
 // import { useVoteContext } from '@/context/VoteContext';
 
 const Profile = () => {

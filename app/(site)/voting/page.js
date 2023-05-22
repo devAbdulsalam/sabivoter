@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Vote from '../../../components/ui/VoteBtn';
+import Vote from '../../components/ui/VoteBtn';
 
 const page = async () => {
 	return (
@@ -14,4 +14,4 @@ const page = async () => {
 	);
 };
 
-export default page; 
+export default page;

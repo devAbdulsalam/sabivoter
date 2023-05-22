@@ -1,7 +1,7 @@
 import './../globals.css';
-import Header from '@/components//header';
-import Footer from '@/components/Footer';
-import Modals from '@/components/modals/Modals';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Modals from '../components/modals/Modals';
 import Provider from './provider';
 import VoteContextProvider from '@/context/VoteContext';
 import ModalContextProvider from '@/context/ModalContext';

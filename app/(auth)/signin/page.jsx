@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
-import GoogleLoginButton from '@/components/auth/GoogleSignInButton';
+import GoogleLoginButton from './../../components/auth/GoogleSignInButton';
 import Link from 'next/link';
 
 const page = ({ searchParams }) => {

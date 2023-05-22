@@ -9,8 +9,8 @@ import axios from 'axios';
 import { useAnimation, motion } from 'framer-motion';
 import { ProjAnimation, SingleProjectAnim } from '@/utils/animation';
 import { useInView } from 'react-intersection-observer';
-import BreadCrumbs from '@/components/ui/BreadCrumbs';
-import VoteBtn from '@/components/ui/VoteBtn';
+import BreadCrumbs from '../../../../components/ui/BreadCrumbs';
+import VoteBtn from '../../../../components/ui/VoteBtn';
 
 const Candidate = ({ params }) => {
 	const [candidates, setCandidates] = useState([]);

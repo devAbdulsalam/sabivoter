@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import Link from "next/link";
 const Election = ({ election }) => {
 	const { _id:id, electionName, beginAt:Start, endAt:End } = election;

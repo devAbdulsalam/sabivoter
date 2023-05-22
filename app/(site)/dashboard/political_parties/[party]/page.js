@@ -3,7 +3,7 @@ import Link from 'next/link';
 import avatar from '@/public/assets/avatar.png';
 import { notFound } from 'next/navigation';
 import { getData } from '@/utils/AxiosApis';
-import BreadCrumbs from '@/components/ui/BreadCrumbs';
+import BreadCrumbs from './../../../../components/ui/BreadCrumbs';
 
 const page = async ({ params }) => {
 	let party = await getData(`political_parties/${params.party}`);

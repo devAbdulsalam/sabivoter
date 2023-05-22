@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 // import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export default NextAuth({
+export const authOptions = {
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
@@ -53,4 +53,5 @@ export default NextAuth({
 	session: {
 		strategy: 'jwt',
 	},
-});
+};
+export default NextAuth(authOptions);

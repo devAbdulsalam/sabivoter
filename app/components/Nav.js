@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginButton from '@/components//auth/SignInButton';
+import LoginButton from './auth/SignInButton';
 // import navigation data
 import { navigation } from '@/utils/Data';
 // import Link
